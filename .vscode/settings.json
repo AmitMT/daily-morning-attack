@@ -1,0 +1,16 @@
+{
+	"editor.tabSize": 2,
+	"editor.detectIndentation": false,
+	"editor.codeActionsOnSave": {
+		"source.fixAll.eslint": true,
+		"source.addMissingImports": true
+	},
+	"search.exclude": {
+		"package-lock.json": true,
+		"yarn.lock": true
+	},
+	"editor.formatOnSave": true,
+	"css.validate": false,
+	"typescript.tsdk": "./node_modules/typescript/lib",
+	"typescript.enablePromptUseWorkspaceTsdk": true
+}
