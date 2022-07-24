@@ -8,11 +8,12 @@ import Navbar from '../components/Navbar';
 import '../styles/main.css';
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
+	const AnyComponent = Component as any;
 	return (
 		<div className="flex flex-col w-screen h-screen">
 			<ThemeProvider attribute="class">
 				<Navbar />
-				<Component {...pageProps} />
+				<AnyComponent {...pageProps} />
 			</ThemeProvider>
 		</div>
 	);
