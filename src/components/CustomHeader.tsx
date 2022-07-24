@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import React, { FC } from 'react';
 
 import { NextSeo } from 'next-seo';
 import Head from 'next/head';

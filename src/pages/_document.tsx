@@ -10,7 +10,7 @@ class MyDocument extends Document {
 		return (
 			<Html lang={AppConfig.locale}>
 				<Head />
-				<body>
+				<body dir="rtl" style={{ overflowX: 'hidden' }}>
 					<Main />
 					<NextScript />
 				</body>

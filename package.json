@@ -14,10 +14,17 @@
 		"prepare": "husky install"
 	},
 	"dependencies": {
+		"@fortawesome/fontawesome": "^1.1.8",
+		"@fortawesome/fontawesome-free-solid": "^5.0.13",
+		"@fortawesome/fontawesome-svg-core": "^6.1.1",
+		"@fortawesome/react-fontawesome": "^0.2.0",
+		"babel-plugin-macros": "^3.1.0",
 		"next": "^12.0.2",
 		"next-seo": "^4.28.1",
+		"next-themes": "^0.2.0",
 		"react": "^17.0.2",
 		"react-dom": "^17.0.2",
+		"react-linkify": "^1.0.0-alpha",
 		"styled-jsx-plugin-postcss": "^4.0.1"
 	},
 	"devDependencies": {
@@ -25,6 +32,7 @@
 		"@next/eslint-plugin-next": "^12.0.3",
 		"@types/node": "^16.11.6",
 		"@types/react": "^17.0.33",
+		"@types/react-linkify": "^1.0.1",
 		"@typescript-eslint/eslint-plugin": "^4.33.0",
 		"@typescript-eslint/parser": "^4.33.0",
 		"autoprefixer": "^10.4.1",

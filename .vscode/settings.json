@@ -12,5 +12,23 @@
 	"editor.formatOnSave": true,
 	"css.validate": false,
 	"typescript.tsdk": "./node_modules/typescript/lib",
-	"typescript.enablePromptUseWorkspaceTsdk": true
+	"typescript.enablePromptUseWorkspaceTsdk": true,
+	"cSpell.words": [
+		"בתחומים",
+		"הבאים",
+		"הבוקר",
+		"החודש",
+		"היומית",
+		"ובמיוחד",
+		"והסבירו",
+		"והתנדבותית",
+		"וקריאה",
+		"להבנה",
+		"שמעניין",
+		"fontawesome",
+		"fortawesome",
+		"hatkafa",
+		"Linkify",
+		"Utilman"
+	]
 }

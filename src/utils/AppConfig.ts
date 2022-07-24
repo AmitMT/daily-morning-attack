@@ -1,7 +1,7 @@
 export const AppConfig = {
-	site_name: 'Starter',
-	title: 'Nextjs Starter',
+	site_name: 'Daily Morning Attack',
+	title: 'התקפת בוקר יומית',
 	description:
-		'Starter code for your Nextjs Boilerplate with Typescript, Tailwind, ESLint, StyleLint and Prettier',
+		'תקיפת בוקר יומית היא יוזמה חברתית והתנדבותית בתחומים של אבטחת מידע ובמיוחד של סייבר התקפי.\nמידי בוקר שולחים מאמר קצר שכתבו על תקיפה, חולשה, הגנה או משהו אחר שמעניין אותם עם היבט התקפי והסבירו בצורה פשוטה וקריאה להבנה.',
 	locale: 'il',
 };
