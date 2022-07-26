@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable global-require */
 module.exports = {
 	content: ['./src/**/*.{js,ts,jsx,tsx}'],
@@ -5,5 +6,8 @@ module.exports = {
 	theme: {
 		extend: {},
 	},
-	plugins: [],
+	plugins: [require('tailwind-scrollbar')],
+	variants: {
+		scrollbar: ['dark'],
+	},
 };

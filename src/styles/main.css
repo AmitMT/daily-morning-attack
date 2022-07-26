@@ -1,11 +1,12 @@
 @tailwind base;
 
 * {
-	transition: background-color 0.3s ease-in-out;
+	transition: background-color 0.3s ease;
+	outline: none;
 }
 
 a {
-	@apply text-sky-500 cursor-pointer;
+	@apply text-sky-500 cursor-pointer font-semibold;
 }
 
 a:hover {
@@ -13,7 +14,8 @@ a:hover {
 }
 
 a:visited {
-	@apply text-violet-500 cursor-pointer;
+	transition: color 0.3s ease;
+	@apply text-violet-500;
 }
 
 @tailwind components;

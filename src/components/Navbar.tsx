@@ -13,21 +13,24 @@ const Navbar: FC<NavbarProps> = ({ ...props }) => {
 	const { theme, setTheme } = useTheme();
 
 	return (
-		<div {...props} className="flex p-4 shadow-lg z-40 bg-white dark:bg-neutral-900">
-			<p className="font-bold text-lg">התקפת בוקר יומית</p>
+		<div {...props} className="flex p-5 shadow-lg z-40 bg-blue-100 dark:bg-neutral-800">
+			<p className="font-bold text-lg cursor-pointer">התקפת בוקר יומית</p>
 			<div className="flex-1 flex flex-row-reverse">
-				<div className="flex items-center justify-center  border-2 border-gray-300 dark:border-gray-700 rounded-full overflow-hidden aspect-square -my-2 mr-2 ml-0 cursor-pointer">
-					<FontAwesomeIcon icon="user" className="text-2xl text-gray-400" />
+				<div className="flex items-center justify-center bg-neutral-100 dark:bg-neutral-600 border-4 border-gray-400 dark:border-neutral-500 rounded-full overflow-hidden aspect-square -my-2 mr-2 ml-0 transition-all duration-300 hover:scale-110 cursor-pointer">
+					<FontAwesomeIcon
+						icon="user"
+						className="text-4xl text-gray-600 dark:text-neutral-300 mt-2"
+					/>
 				</div>
 				<button
-					className="flex items-center justify-center border-2 border-gray-300 dark:border-gray-700 rounded-full overflow-hidden aspect-square -my-2 ml-0 cursor-pointer transition-all group hover:bg-neutral-200 dark:hover:bg-neutral-800 ring-neutral-500 ring-0 active:ring-4 active:border-0"
+					className="flex items-center justify-center bg-neutral-100 dark:bg-neutral-600 border-4 border-gray-400 dark:border-neutral-500 rounded-full overflow-hidden aspect-square -my-2 ml-0 cursor-pointer transition-all duration-300 group hover:scale-110 dark:hover:bg-neutral-700"
 					onClick={() => {
 						setTheme(theme === 'light' ? 'dark' : 'light');
 					}}
 				>
 					<FontAwesomeIcon
 						icon={theme === 'light' ? 'sun' : 'moon'}
-						className="text-2xl text-gray-400 transition-all group-hover:scale-[1.15] group-hover:text-gray-500 dark:group-hover:text-gray-300"
+						className="text-2xl text-gray-600 dark:text-neutral-300 transition-all duration-300 group-active:scale-75"
 					/>
 				</button>
 			</div>

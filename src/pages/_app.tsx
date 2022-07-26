@@ -13,7 +13,12 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
 		<div className="flex flex-col w-screen h-screen">
 			<ThemeProvider attribute="class">
 				<Navbar />
-				<AnyComponent {...pageProps} />
+
+				<main dir="ltr" className="flex-1 flex flex-col overflow-auto">
+					<div dir="rtl" className="flex-1 relative flex flex-col">
+						<AnyComponent {...pageProps} />
+					</div>
+				</main>
 			</ThemeProvider>
 		</div>
 	);
