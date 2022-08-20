@@ -11,7 +11,8 @@
 		"clean": "rimraf .next out",
 		"lint": "next lint",
 		"build-types": "tsc --noEmit --pretty",
-		"prepare": "husky install"
+		"prepare": "husky install",
+		"postbuild": "next-sitemap"
 	},
 	"dependencies": {
 		"@heroicons/react": "^1.0.6",
@@ -28,6 +29,7 @@
 		"next-auth": "^4.10.3",
 		"next-remove-imports": "^1.0.6",
 		"next-seo": "^5.5.0",
+		"next-sitemap": "^3.1.20",
 		"next-themes": "^0.2.0",
 		"nextjs-progressbar": "^0.0.14",
 		"react": "^17.0.2",

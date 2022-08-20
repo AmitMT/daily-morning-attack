@@ -430,6 +430,11 @@
     style-mod "^4.0.0"
     w3c-keyname "^2.2.4"
 
+"@corex/deepmerge@^4.0.29":
+  version "4.0.29"
+  resolved "https://registry.yarnpkg.com/@corex/deepmerge/-/deepmerge-4.0.29.tgz#af9debf07d7f6b0d2a9d04a266abf2c1418ed2f6"
+  integrity sha512-q/yVUnqckA8Do+EvAfpy7RLdumnBy9ZsducMUtZTvpdbJC7azEf1hGtnYYxm0QfphYxjwggv6XtH64prvS1W+A==
+
 "@csstools/selector-specificity@^2.0.2":
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/@csstools/selector-specificity/-/selector-specificity-2.0.2.tgz#1bfafe4b7ed0f3e4105837e056e0a89b108ebe36"
@@ -4246,6 +4251,14 @@ next-seo@^5.5.0:
   version "5.5.0"
   resolved "https://registry.yarnpkg.com/next-seo/-/next-seo-5.5.0.tgz#12bdfce60a6ae098f49617357a166c2d44dbc29e"
   integrity sha512-5ouBHFtx8YrSDW44lj0qIEQ+oMcz6stgoITB+SqHUZbhgizoJsyLmq73gJ0lxtEKpcN8vG2QgRIJfdb8OAPChw==
+
+next-sitemap@^3.1.20:
+  version "3.1.20"
+  resolved "https://registry.yarnpkg.com/next-sitemap/-/next-sitemap-3.1.20.tgz#3b5839b452688a5eaebec22603d2f9e59ef70088"
+  integrity sha512-ugcSQpAtwc9fk7fsr5to0yrlA/RjY0kw2wHOUqcrRXnZDwFfBwGnEVvaYbI7C4ZlhvxjJTA3G15QMpvpmvPquw==
+  dependencies:
+    "@corex/deepmerge" "^4.0.29"
+    minimist "^1.2.6"
 
 next-themes@^0.2.0:
   version "0.2.0"
