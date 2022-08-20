@@ -69,7 +69,7 @@ const Index: NextPage<PageProps> = (props) => {
 					</div>
 				</article>
 				<div className="w-[6px] bg-gray-300 dark:bg-neutral-600 rounded-full" />
-				<article className="flex-1 flex flex-col min-w-0 p-2">
+				<article className="flex-1 flex flex-col min-w-0">
 					<h2 className="font-bold text-2xl text-slate-500 dark:text-slate-300 mb-10 text-center">
 						היכל התהילה
 					</h2>
