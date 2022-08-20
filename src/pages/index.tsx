@@ -57,7 +57,7 @@ const Index: NextPage<PageProps> = (props) => {
 
 			<section className="flex flex-col-reverse lg:flex-row p-5 md:p-10 bg-gray-100 dark:bg-neutral-900 gap-10 break-words">
 				<article className="flex-1 p-2 pb-0 min-w-0">
-					<h2 className="font-bold text-2xl text-slate-500 dark:text-slate-300 mr-10 mb-10 text-center">
+					<h2 className="font-bold text-2xl text-slate-500 dark:text-slate-300 lg:mr-10 mb-10 text-center">
 						התקפת הבוקר היומית
 					</h2>
 					<div className="p-10 rounded-3xl border-2 dark:border-none bg-gray-50 dark:bg-neutral-800">
