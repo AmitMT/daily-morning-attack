@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { UserIcon, LockClosedIcon, AtSymbolIcon } from '@heroicons/react/outline';
 import { zodResolver } from '@hookform/resolvers/zod';
 import axios, { AxiosError } from 'axios';
-import { GetStaticProps, NextPage } from 'next';
+import { GetServerSideProps, NextPage } from 'next';
 import { getProviders, signIn } from 'next-auth/react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
@@ -79,7 +79,10 @@ const Login: NextPage<LoginProps> = ({ providers }) => {
 		if (errors && Object.keys(errors).length > 0) setFormState('error');
 		else setFormState('idle');
 	}, [errors]);
-	console.log(providers);
+
+	axios.get('/api/auth/providers').then((res) => {
+		console.log(res.data);
+	});
 
 	return (
 		<>
@@ -212,8 +215,9 @@ const Login: NextPage<LoginProps> = ({ providers }) => {
 	);
 };
 
-export const getStaticProps: GetStaticProps<LoginProps> = async () => {
+export const getServerSideProps: GetServerSideProps<LoginProps> = async () => {
 	const providers = await getProviders();
+	console.log(providers);
 
 	return {
 		props: { providers },
