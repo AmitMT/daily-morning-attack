@@ -80,10 +80,6 @@ const Login: NextPage<LoginProps> = ({ providers }) => {
 		else setFormState('idle');
 	}, [errors]);
 
-	axios.get('/api/auth/providers').then((res) => {
-		console.log(res.data);
-	});
-
 	return (
 		<>
 			<CustomHeader />
@@ -217,7 +213,6 @@ const Login: NextPage<LoginProps> = ({ providers }) => {
 
 export const getServerSideProps: GetServerSideProps<LoginProps> = async () => {
 	const providers = await getProviders();
-	console.log(providers);
 
 	return {
 		props: { providers },
