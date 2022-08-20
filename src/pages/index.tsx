@@ -2,6 +2,7 @@ import React from 'react';
 
 import { NextPage } from 'next';
 import { Session } from 'next-auth';
+import { signIn, signOut } from 'next-auth/react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -47,6 +48,11 @@ const Index: NextPage<PageProps> = (props) => {
 						היבט התקפי והסבירו בצורה פשוטה וקריאה להבנה.
 					</p>
 				</section>
+			</div>
+
+			<div>
+				<button onClick={() => signIn()}>login</button>
+				<button onClick={() => signOut()}>signOut</button>
 			</div>
 
 			<section className="flex flex-col-reverse lg:flex-row p-5 md:p-10 bg-gray-100 dark:bg-neutral-900 gap-10 break-words">

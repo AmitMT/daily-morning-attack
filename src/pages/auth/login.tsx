@@ -79,6 +79,7 @@ const Login: NextPage<LoginProps> = ({ providers }) => {
 		if (errors && Object.keys(errors).length > 0) setFormState('error');
 		else setFormState('idle');
 	}, [errors]);
+	console.log(providers);
 
 	return (
 		<>
