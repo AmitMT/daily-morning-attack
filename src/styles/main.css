@@ -1,8 +1,12 @@
+@import 'http://fonts.cdnfonts.com/css/cascadia-code';
+@import 'https://fonts.googleapis.com/css2?family=Assistant:wght@700&display=swap';
+
 @tailwind base;
 
 * {
 	transition: background-color 0.3s ease;
 	outline: none;
+	-webkit-tap-highlight-color: transparent;
 }
 
 a {
@@ -16,6 +20,80 @@ a:hover {
 a:visited {
 	transition: color 0.3s ease;
 	@apply text-violet-500;
+}
+
+.md-editor {
+	@apply !rounded-xl !shadow-none;
+}
+
+[data-color-mode*='light'] .md-editor {
+	@apply border-4;
+}
+
+.md-editor-toolbar {
+	@apply !rounded-none !p-0 !border-none;
+}
+
+.md-editor-content {
+	@apply flex flex-row-reverse;
+}
+
+.cm-editor {
+	@apply !outline-none;
+}
+
+.cm-scroller {
+	@apply overflow-auto;
+}
+
+.md-editor-content-editor {
+	@apply text-right !whitespace-pre !break-words !rounded-br-lg;
+
+	font-family: 'Cascadia Code', Assistant, monospace !important;
+	font-weight: 600;
+	direction: rtl;
+}
+
+.cm-gutters {
+	@apply !border-none !bg-transparent;
+}
+
+.md-editor-content-editor div {
+	font-family: inherit !important;
+}
+
+.md-editor > div:first-child {
+	@apply flex p-1 top-0 sticky z-50 rounded-t-lg;
+}
+
+[data-color-mode*='light'] .md-editor > div:first-child {
+	@apply !border-b-4 !bg-[#f6f8fa];
+}
+
+[data-color-mode*='dark'] .md-editor > div:first-child {
+	@apply !bg-[#161b22];
+}
+
+.md-editor > div:first-child > div:first-child {
+	@apply flex-1;
+}
+
+.wmde-markdown {
+	@apply text-right !left-0 !border-l-0 !rounded-none !rounded-bl-lg;
+
+	direction: ltr;
+}
+
+[data-color-mode*='light'] .wmde-markdown {
+	@apply border-r-4;
+}
+
+.md-editor-toolbar button {
+	@apply !flex items-center justify-center !rounded-lg !w-8 !h-8;
+}
+
+.md-editor-toolbar button svg {
+	@apply w-5 h-5;
 }
 
 @tailwind components;

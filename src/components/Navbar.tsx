@@ -1,37 +1,38 @@
 import React, { FC } from 'react';
 
-import fontawesome from '@fortawesome/fontawesome';
-import { faMoon, faSun, faUser } from '@fortawesome/fontawesome-free-solid';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { MoonIcon, SunIcon, UserIcon } from '@heroicons/react/outline';
+import { useSession } from 'next-auth/react';
 import { useTheme } from 'next-themes';
-
-fontawesome.library.add(faUser, faSun, faMoon);
+import Image from 'next/image';
+import Link from 'next/link';
 
 export interface NavbarProps {}
 
 const Navbar: FC<NavbarProps> = ({ ...props }) => {
+	const { data: session } = useSession();
 	const { theme, setTheme } = useTheme();
 
 	return (
-		<div {...props} className="flex p-5 shadow-lg z-40 bg-blue-100 dark:bg-neutral-800">
-			<p className="font-bold text-lg cursor-pointer">התקפת בוקר יומית</p>
+		<div {...props} className="flex p-5 shadow-lg z-40 bg-slate-200 dark:bg-neutral-800">
+			<Link href="/">
+				<p className="font-bold text-lg cursor-pointer">התקפת בוקר יומית</p>
+			</Link>
 			<div className="flex-1 flex flex-row-reverse">
-				<div className="flex items-center justify-center bg-neutral-100 dark:bg-neutral-600 border-4 border-gray-400 dark:border-neutral-500 rounded-full overflow-hidden aspect-square -my-2 mr-2 ml-0 transition-all duration-300 hover:scale-110 cursor-pointer">
-					<FontAwesomeIcon
-						icon="user"
-						className="text-4xl text-gray-600 dark:text-neutral-300 mt-2"
-					/>
-				</div>
+				<button className="flex items-center justify-center bg-neutral-100 dark:bg-neutral-600 border-4 border-gray-400 dark:border-neutral-500 rounded-full overflow-hidden aspect-square -my-2 mr-2 ml-0 transition-all duration-300 hover:scale-110 active:scale-100 cursor-pointer relative">
+					{session?.user?.image ? (
+						<Image src={session?.user?.image} layout="fill" objectFit="contain" alt="user image" />
+					) : (
+						<UserIcon className="w-6" />
+					)}
+				</button>
+
 				<button
-					className="flex items-center justify-center bg-neutral-100 dark:bg-neutral-600 border-4 border-gray-400 dark:border-neutral-500 rounded-full overflow-hidden aspect-square -my-2 ml-0 cursor-pointer transition-all duration-300 group hover:scale-110 dark:hover:bg-neutral-700"
+					className="flex items-center justify-center bg-neutral-100 dark:bg-neutral-600 border-4 border-gray-400 dark:border-neutral-500 rounded-full overflow-hidden aspect-square -my-2 ml-0 cursor-pointer transition-all duration-300 group hover:scale-110 active:scale-100 dark:hover:bg-neutral-700"
 					onClick={() => {
 						setTheme(theme === 'light' ? 'dark' : 'light');
 					}}
 				>
-					<FontAwesomeIcon
-						icon={theme === 'light' ? 'sun' : 'moon'}
-						className="text-2xl text-gray-600 dark:text-neutral-300 transition-all duration-300 group-active:scale-75"
-					/>
+					{theme === 'dark' ? <MoonIcon className="w-6" /> : <SunIcon className="w-6" />}
 				</button>
 			</div>
 		</div>

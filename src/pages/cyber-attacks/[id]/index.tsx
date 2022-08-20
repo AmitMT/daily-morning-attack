@@ -3,7 +3,9 @@ import React from 'react';
 import { NextPage } from 'next';
 import ReactLinkify from 'react-linkify';
 
-import hatkafaExs from '../../utils/hatkafa-exs';
+import CustomHeader from '../../../components/CustomHeader';
+import { setSessionView } from '../../../lib/auth/serverSideSession';
+import hatkafaExs from '../../../utils/hatkafa-exs';
 
 export interface CyberAttackProps {}
 
@@ -16,6 +18,8 @@ const CyberAttack: NextPage<CyberAttackProps> = () => {
 
 	return (
 		<>
+			<CustomHeader />
+
 			<div className="flex flex-col items-center justify-center bg-gray-100 dark:bg-transparent p-14 mb-5">
 				<h1 className="font-bold text-6xl mb-5">תקיפת בוקר יומית</h1>
 				<p className="font-bold text-2xl mb-10">25/7/22</p>
@@ -100,5 +104,7 @@ const CyberAttack: NextPage<CyberAttackProps> = () => {
 		</>
 	);
 };
+
+export const getServerSideProps = setSessionView();
 
 export default CyberAttack;
