@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback } from 'react';
 
 import { NextPage } from 'next';
 import { useSession } from 'next-auth/react';
@@ -11,9 +11,9 @@ import { setProtectedView } from '../../../lib/auth/serverSideSession';
 export interface EditProps {}
 
 const Edit: NextPage<EditProps> = () => {
-	const [title, setTitle] = useState('');
 	const { data: session } = useSession();
 
+	const [title, setTitle] = useLocalStorage('edited cyber attack title', '');
 	const [value, setValue] = useLocalStorage('edited cyber attack', '# Hi!');
 
 	const handleChange = useCallback((newValue: string) => {
