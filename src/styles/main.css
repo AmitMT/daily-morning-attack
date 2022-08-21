@@ -22,78 +22,63 @@ a:visited {
 	@apply text-violet-500;
 }
 
-.md-editor {
-	@apply !rounded-xl !shadow-none;
+.editor-wrapper {
+	@apply flex-1 flex overflow-hidden;
 }
 
-[data-color-mode*='light'] .md-editor {
-	@apply border-4;
+.preview.markdown-body {
+	@apply flex-1 rounded-l-lg border-4 border-r-0 dark:border-0;
+
+	padding: 12px;
+	overflow: auto;
 }
 
-.md-editor-toolbar {
-	@apply !rounded-none !p-0 !border-none;
-}
-
-.md-editor-content {
-	@apply flex flex-row-reverse;
-}
-
-.cm-editor {
-	@apply !outline-none;
-}
-
-.cm-scroller {
-	@apply overflow-auto;
-}
-
-.md-editor-content-editor {
-	@apply text-right !whitespace-pre !break-words !rounded-br-lg;
-
-	font-family: 'Cascadia Code', Assistant, monospace !important;
-	font-weight: 600;
-	direction: rtl;
-}
-
-.cm-gutters {
-	@apply !border-none !bg-transparent;
-}
-
-.md-editor-content-editor div {
-	font-family: inherit !important;
-}
-
-.md-editor > div:first-child {
-	@apply flex p-1 top-0 sticky z-50 rounded-t-lg;
-}
-
-[data-color-mode*='light'] .md-editor > div:first-child {
-	@apply !border-b-4 !bg-[#f6f8fa];
-}
-
-[data-color-mode*='dark'] .md-editor > div:first-child {
-	@apply !bg-[#161b22];
-}
-
-.md-editor > div:first-child > div:first-child {
-	@apply flex-1;
-}
-
-.wmde-markdown {
-	@apply text-right !left-0 !border-l-0 !rounded-none !rounded-bl-lg;
-
+.preview.markdown-body pre {
 	direction: ltr;
 }
 
-[data-color-mode*='light'] .wmde-markdown {
-	@apply border-r-4;
+.preview.markdown-body ul {
+	padding-left: 0;
+	padding-inline-start: 2em;
 }
 
-.md-editor-toolbar button {
-	@apply !flex items-center justify-center !rounded-lg !w-8 !h-8;
+.preview.markdown-body ul li::marker {
+	content: '·  ';
+	font-size: 1rem;
+	font-weight: 900;
+	padding-left: 10px;
+	position: absolute;
+	width: 10px;
+	height: 10px;
+	background: #fff;
 }
 
-.md-editor-toolbar button svg {
-	@apply w-5 h-5;
+.preview.markdown-body ol {
+	padding-left: 0;
+	padding-inline-start: 2em;
+}
+
+.preview.markdown-body blockquote {
+	border-right: 0.25em solid var(--color-border-default);
+	border-radius: 0.25em;
+	border-left: none;
+}
+
+.cm-editor {
+	outline: none !important;
+	@apply flex-1 pr-3;
+}
+
+.cm-content {
+	font-family: monospace, 'Segoe UI', sans-serif;
+	padding: 0;
+	margin-top: 2em;
+}
+
+/* stylelint-disable-next-line selector-class-pattern */
+.cm-gutterElement {
+	display: flex;
+	align-items: center;
 }
 
 @tailwind components;

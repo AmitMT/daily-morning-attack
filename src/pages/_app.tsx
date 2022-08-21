@@ -8,6 +8,7 @@ import NextNProgress from 'nextjs-progressbar';
 import Navbar from '../components/Navbar';
 
 import '../styles/main.css';
+import '../styles/github-markdown-theme.css';
 
 const MainComponent = ({ Component, pageProps }: AppProps) => {
 	const { theme, setTheme } = useTheme();

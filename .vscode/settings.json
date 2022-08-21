@@ -25,6 +25,8 @@
 		"וקריאה",
 		"להבנה",
 		"שמעניין",
+		"brackethighlighter",
+		"codemirror",
 		"fontawesome",
 		"Formik",
 		"fortawesome",
@@ -32,8 +34,13 @@
 		"hatkafa",
 		"hookform",
 		"Linkify",
+		"matchbrackets",
+		"octicon",
 		"preinstall",
+		"prettylights",
+		"runmode",
 		"scroller",
+		"sublimelinter",
 		"Utilman",
 		"wmde"
 	]
