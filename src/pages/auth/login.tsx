@@ -42,7 +42,7 @@ const Login: NextPage<LoginProps> = ({ providers }) => {
 			redirect: false,
 			email,
 			password,
-			callbackUrl: `${window.location.origin}`,
+			callbackUrl: `${window.location.origin}${router.query.callbackUrl || ''}`,
 		});
 
 		setServerError(res?.error);

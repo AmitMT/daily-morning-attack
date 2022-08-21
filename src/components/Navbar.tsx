@@ -17,7 +17,9 @@ const Navbar: FC<NavbarProps> = ({ ...props }) => {
 	return (
 		<nav {...props} className="flex p-5 shadow-lg z-40 bg-slate-200 dark:bg-neutral-800">
 			<Link href="/">
-				<p className="font-bold cursor-pointer text-2xl my-1">{AppConfig.title}</p>
+				<p className="font-bold cursor-pointer text-xl my-[0.4rem] md:text-2xl md:my-1">
+					{AppConfig.title}
+				</p>
 			</Link>
 			<div className="flex-1 flex flex-row-reverse">
 				<button className="flex items-center justify-center bg-neutral-100 dark:bg-neutral-600 border-4 border-gray-400 dark:border-0 rounded-full overflow-hidden aspect-square -my-2 mr-2 ml-0 transition-all duration-300 hover:scale-110 active:scale-100 cursor-pointer relative">
