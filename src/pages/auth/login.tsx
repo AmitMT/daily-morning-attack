@@ -32,17 +32,27 @@ const Login: NextPage<LoginProps> = ({ providers }) => {
 	const [serverError, setServerError] = useState<string | undefined>();
 
 	const redirectToHome = () => {
+		console.log(router);
+
 		if (typeof router.query.callbackUrl === 'string') router.push(router.query.callbackUrl);
 		else router.push('/');
 	};
 
 	const loginUser = async ({ email, password }: RegisterSchemaType) => {
 		setFormState('processing');
+		console.log(`${window.location.origin}${router.query.callbackUrl || ''}`);
+
 		const res = await signIn('credentials', {
 			redirect: false,
 			email,
 			password,
-			callbackUrl: `${window.location.origin}${router.query.callbackUrl || ''}`,
+			callbackUrl: `${
+				(router.query.callbackUrl &&
+					((router.query.callbackUrl as string).startsWith(window.location.origin)
+						? router.query.callbackUrl
+						: `${window.location.origin}${router.query.callbackUrl}`)) ||
+				window.location.origin
+			}`,
 		});
 
 		setServerError(res?.error);
@@ -100,7 +110,13 @@ const Login: NextPage<LoginProps> = ({ providers }) => {
 										key={provider.name}
 										onClick={() => {
 											signIn(provider.id, {
-												callbackUrl: `${process.env.NEXT_PUBLIC_BASE_URL}`,
+												callbackUrl: `${
+													(router.query.callbackUrl &&
+														((router.query.callbackUrl as string).startsWith(window.location.origin)
+															? router.query.callbackUrl
+															: `${window.location.origin}${router.query.callbackUrl}`)) ||
+													window.location.origin
+												}`,
 											});
 										}}
 										className="flex items-center justify-center bg-orange-500 shadow-lg shadow-orange-500/30 text-white rounded-md w-full p-4 mt-8 select-none"
