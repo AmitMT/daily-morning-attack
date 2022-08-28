@@ -42,7 +42,7 @@ const Index: NextPage<PageProps> = (props) => {
 				/>
 				<section className="flex flex-col justify-center items-center h-[65vh] min-h-[400px]">
 					<h1 className="font-bold text-6xl mb-10 text-white text-center">ברוכים הבאים</h1>
-					<p className="text-center mx-4 md:mx-0 md:w-1/2 md:text-start font-semibold text-xl text-white dark:text-gray-200">
+					<p className="text-center mx-4 md:mx-0 md:w-1/2 font-semibold text-xl text-white dark:text-gray-200">
 						תקיפת בוקר יומית היא יוזמה חברתית והתנדבותית בתחומים של אבטחת מידע ובמיוחד של סייבר
 						התקפי. מידי בוקר שולחים מאמר קצר שכתבו על תקיפה, חולשה, הגנה או משהו אחר שמעניין אותם עם
 						היבט התקפי והסבירו בצורה פשוטה וקריאה להבנה.
