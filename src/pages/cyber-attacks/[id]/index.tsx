@@ -4,7 +4,7 @@ import { NextPage } from 'next';
 import ReactLinkify from 'react-linkify';
 
 import CustomHeader from '../../../components/CustomHeader';
-import { setSessionView } from '../../../lib/auth/serverSideSession';
+import { setServerSideSessionView } from '../../../lib/auth/serverSideSession';
 import hatkafaExs from '../../../utils/hatkafa-exs';
 
 export interface CyberAttackProps {}
@@ -105,6 +105,6 @@ const CyberAttack: NextPage<CyberAttackProps> = () => {
 	);
 };
 
-export const getServerSideProps = setSessionView();
+export const getServerSideProps = setServerSideSessionView();
 
 export default CyberAttack;

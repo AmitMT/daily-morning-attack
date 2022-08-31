@@ -20,7 +20,6 @@ export const connect = async () => {
 
 	if (!globalCache.mongoose.promise) {
 		globalCache.mongoose.promise = mongoose.connect(MONGODB_URI, {
-			bufferCommands: false,
 			autoIndex: true,
 		});
 

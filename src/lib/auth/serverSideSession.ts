@@ -9,7 +9,7 @@ import {
 import { Session } from 'next-auth';
 import { getSession } from 'next-auth/react';
 
-type SetProtectedView = <
+type SetServerSideProtectedView = <
 	P extends { [key: string]: any } = { [key: string]: any },
 	Q extends ParsedUrlQuery = ParsedUrlQuery,
 	D extends PreviewData = PreviewData,
@@ -20,7 +20,7 @@ type SetProtectedView = <
 	) => Promise<GetServerSidePropsResult<P>>,
 ) => GetServerSideProps<P & { session: Session | null }, Q, D>;
 
-export const setProtectedView: SetProtectedView = (getServerSideProps) => {
+export const setServerSideProtectedView: SetServerSideProtectedView = (getServerSideProps) => {
 	return async (context) => {
 		const { req, res, resolvedUrl } = context;
 		const session = await getSession({ req });
@@ -37,13 +37,12 @@ export const setProtectedView: SetProtectedView = (getServerSideProps) => {
 
 		if (anyResult.props) anyResult.props.session = session;
 		else anyResult.prop = { session };
-		console.log({ anyResult });
 
 		return anyResult;
 	};
 };
 
-type SetSessionView = <
+type SetServerSideSessionView = <
 	P extends { [key: string]: any } = { [key: string]: any },
 	Q extends ParsedUrlQuery = ParsedUrlQuery,
 	D extends PreviewData = PreviewData,
@@ -51,7 +50,7 @@ type SetSessionView = <
 	getServerSideProps?: GetServerSideProps<P, Q, D>,
 ) => GetServerSideProps<P & { session: Session | null }, Q, D>;
 
-export const setSessionView: SetSessionView = (getServerSideProps) => {
+export const setServerSideSessionView: SetServerSideSessionView = (getServerSideProps) => {
 	return async (context) => {
 		const [result, session] = await Promise.all([
 			getServerSideProps

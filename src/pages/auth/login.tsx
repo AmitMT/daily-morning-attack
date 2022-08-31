@@ -32,15 +32,12 @@ const Login: NextPage<LoginProps> = ({ providers }) => {
 	const [serverError, setServerError] = useState<string | undefined>();
 
 	const redirectToHome = () => {
-		console.log(router);
-
 		if (typeof router.query.callbackUrl === 'string') router.push(router.query.callbackUrl);
 		else router.push('/');
 	};
 
 	const loginUser = async ({ email, password }: RegisterSchemaType) => {
 		setFormState('processing');
-		console.log(`${window.location.origin}${router.query.callbackUrl || ''}`);
 
 		const res = await signIn('credentials', {
 			redirect: false,
@@ -71,7 +68,6 @@ const Login: NextPage<LoginProps> = ({ providers }) => {
 				loginUser(data);
 			})
 			.catch((err: AxiosError<{ error?: string }>) => {
-				console.log('error registering');
 				setServerError(err.response?.data?.error);
 			});
 	};

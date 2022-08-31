@@ -1,6 +1,6 @@
 import { MongoDBAdapter } from '@next-auth/mongodb-adapter';
 import { compare } from 'bcrypt';
-import NextAuth from 'next-auth';
+import NextAuth, { NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import GithubProvider from 'next-auth/providers/github';
 
@@ -10,7 +10,7 @@ import User from '../../../models/User';
 
 const { GITHUB_ID, GITHUB_SECRET } = process.env;
 
-export default NextAuth({
+export const authOptions: NextAuthOptions = {
 	providers: [
 		GithubProvider({
 			clientId: GITHUB_ID as string,
@@ -60,4 +60,6 @@ export default NextAuth({
 		secret: process.env.NEXTAUTH_JWT_SECRET,
 	},
 	secret: process.env.NEXTAUTH_SECRET,
-});
+};
+
+export default NextAuth(authOptions);

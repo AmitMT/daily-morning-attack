@@ -5,6 +5,7 @@ import { MongooseError } from 'mongoose';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { ZodError } from 'zod';
 
+import { connect } from '../../lib/mongodb/connection';
 import User from '../../models/User';
 import { RegisterSchema, RegisterSchemaType } from '../../utils/zodSchemas';
 
@@ -45,16 +46,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 		hashedPassword,
 	});
 
-	newUser
-		.save()
-		.then(() => {
-			console.log('hi');
+	await connect();
 
-			return res.status(200).end();
-		})
-		.catch((error: MongooseError) => {
-			if (error.message.startsWith('E11000'))
-				return res.status(400).json({ error: 'User already exists' });
-			return res.status(400).json({ error: error.message });
-		});
+	await newUser.save().catch((error: MongooseError) => {
+		if (error.message.startsWith('E11000'))
+			return res.status(400).json({ error: 'User already exists' });
+		return res.status(400).json({ error: error.message });
+	});
+
+	return res.status(200).end();
 }

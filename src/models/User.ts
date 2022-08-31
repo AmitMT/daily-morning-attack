@@ -1,8 +1,12 @@
-import mongoose from 'mongoose';
+import mongoose, { Schema, model } from 'mongoose';
 
-import { UserType } from './types';
-
-const { Schema } = mongoose;
+export interface UserType {
+	_id?: number;
+	name: string;
+	email: string;
+	hashedPassword: string;
+	image?: string;
+}
 
 const userSchema = new Schema<UserType>({
 	name: {
@@ -26,4 +30,4 @@ const userSchema = new Schema<UserType>({
 });
 
 export default (mongoose.models.User as mongoose.Model<UserType>) ||
-	mongoose.model('User', userSchema);
+	model('User', userSchema, 'Users');

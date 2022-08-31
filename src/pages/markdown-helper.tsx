@@ -4,7 +4,7 @@ import { NextPage } from 'next';
 
 import Editor from '../components/Editor';
 import Preview from '../components/Preview';
-import { setProtectedView } from '../lib/auth/serverSideSession';
+import { setServerSideProtectedView } from '../lib/auth/serverSideSession';
 
 const MarkdownHelper: NextPage<{}> = () => {
 	const [value, setValue] = useState(`# כותרת 1
@@ -25,12 +25,12 @@ const MarkdownHelper: NextPage<{}> = () => {
 - פריט
 - פריט
 
-רשימת מלאי:
+**רשימת מלאי:**
 - [ ] פריט
 - [x] פריט
 - [ ] פריט
 
-> ציטוט
+> "ציטוט"
 
 \`\`\`js
 const message = "write code here in many supported languages";
@@ -67,6 +67,6 @@ const message = "write code here in many supported languages";
 	);
 };
 
-export const getServerSideProps = setProtectedView();
+export const getServerSideProps = setServerSideProtectedView();
 
 export default MarkdownHelper;
