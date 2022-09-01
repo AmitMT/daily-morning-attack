@@ -62,7 +62,7 @@ const Login: NextPage<LoginProps> = ({ providers }) => {
 	const registerUser = (data: RegisterSchemaType) => {
 		setFormState('processing');
 		axios
-			.post('/api/register', data)
+			.post('/api/register/', data)
 			.then(() => {
 				setServerError(undefined);
 				loginUser(data);
