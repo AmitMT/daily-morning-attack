@@ -19,6 +19,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 				return res.json({
 					cyberAttacks: await CyberAttack.find()
 						.sort({ date: -1 })
+						.populate('author')
 						.limit(parseInt(amount, 10))
 						.exec(),
 				});

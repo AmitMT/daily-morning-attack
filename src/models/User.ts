@@ -30,4 +30,4 @@ const userSchema = new Schema<UserType>({
 });
 
 export default (mongoose.models.User as mongoose.Model<UserType>) ||
-	model('User', userSchema, 'Users');
+	model('User', userSchema, 'users');

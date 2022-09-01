@@ -49,7 +49,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 	const newCyberAttack = new CyberAttack({
 		title,
 		markdownContent,
-		authorId,
+		author: authorId,
 		date: Date.now(),
 	});
 

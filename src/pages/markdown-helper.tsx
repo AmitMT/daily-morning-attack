@@ -57,8 +57,8 @@ const message = "write code here in many supported languages";
 			<div className="flex flex-col items-center justify-center bg-gray-100 dark:bg-transparent p-14">
 				<h1 className="flex font-bold text-6xl mb-5">Markdown Cheatsheet</h1>
 			</div>
-			<div className="flex-1 flex flex-col p-5 bg-gray-100 dark:bg-neutral-900">
-				<div className="[flex:1_1_auto] flex h-0">
+			<div className="flex-1 flex flex-col p-5 bg-gray-100 dark:bg-neutral-900 w-full">
+				<div className="[flex:1_1_auto] flex h-0 overflow-hidden rounded-lg relative">
 					<Editor onChange={handleChange} initialDoc={value} />
 					<Preview doc={value} />
 				</div>

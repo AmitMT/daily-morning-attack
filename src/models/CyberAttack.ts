@@ -1,9 +1,11 @@
 import mongoose, { Schema, model, Types } from 'mongoose';
 
+import { UserType } from './User';
+
 export interface CyberAttackType {
 	_id?: Types.ObjectId;
 	title: string;
-	authorId: Types.ObjectId;
+	author: UserType;
 	markdownContent: string;
 	date: Date;
 }
@@ -13,7 +15,7 @@ const cyberAttackSchema = new Schema<CyberAttackType>({
 		type: String,
 		required: true,
 	},
-	authorId: {
+	author: {
 		type: Schema.Types.ObjectId,
 		ref: 'User',
 		required: true,
