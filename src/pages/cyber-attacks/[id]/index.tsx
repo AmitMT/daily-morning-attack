@@ -43,8 +43,10 @@ const CyberAttack: NextPage<CyberAttackProps> = () => {
 
 			<div className="relative overflow-x-hidden 2xl:overflow-x-visible">
 				<div
-					className={`absolute select-none 2xl:select-auto inset-0 bg-black transition-opacity duration-500 ${
-						rightWinState === 'open' || leftWinState === 'open' ? 'opacity-50' : 'opacity-0'
+					className={`absolute inset-0 bg-black transition-opacity duration-500 ${
+						rightWinState === 'open' || leftWinState === 'open'
+							? 'opacity-50'
+							: 'opacity-0 pointer-events-none'
 					}`}
 					onClick={() => {
 						if (rightWinState === 'open') setRightWinState('closed');
