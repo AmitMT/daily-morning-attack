@@ -9,13 +9,10 @@ import CustomHeader from '../../../components/CustomHeader';
 import Preview from '../../../components/Preview';
 import { setServerSideSessionView } from '../../../lib/auth/serverSideSession';
 import { CyberAttackType } from '../../../models/CyberAttack';
-import hatkafaExs from '../../../utils/hatkafa-exs';
 
 export interface CyberAttackProps {}
 
 const CyberAttack: NextPage<CyberAttackProps> = () => {
-	const [markdownContent] = useState(hatkafaExs);
-
 	const [sections, setSections] = useState<HTMLHeadingElement[] | null>();
 
 	const [rightWinState, setRightWinState] = useState<'open' | 'closed'>('closed');
@@ -35,7 +32,7 @@ const CyberAttack: NextPage<CyberAttackProps> = () => {
 	useEffect(() => {
 		const parent = document.getElementById('markdown-preview');
 		if (parent) setSections(Array.from(parent.querySelectorAll('h1')));
-	}, [markdownContent]);
+	}, [content]);
 
 	return (
 		<>
@@ -114,7 +111,7 @@ const CyberAttack: NextPage<CyberAttackProps> = () => {
 								</span>
 							</p>
 						</div>
-						<Preview doc={markdownContent} />
+						{content && <Preview doc={content?.markdownContent} />}
 					</article>
 
 					<aside

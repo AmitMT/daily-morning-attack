@@ -1,17 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 
+import axios from 'axios';
+import dayjs from 'dayjs';
 import { NextPage } from 'next';
 import { Session } from 'next-auth';
 import { signIn, signOut } from 'next-auth/react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import ReactLinkify from 'react-linkify';
 
 import CustomHeader from '../components/CustomHeader';
 import HallOfFame from '../components/HallOfFame';
+import Preview from '../components/Preview';
 import { setServerSideSessionView } from '../lib/auth/serverSideSession';
-import hatkafaExs from '../utils/hatkafa-exs';
+import { CyberAttackType } from '../models/CyberAttack';
 
 type PageProps = {
 	session: Session | null;
@@ -20,11 +22,14 @@ type PageProps = {
 const Index: NextPage<PageProps> = () => {
 	const router = useRouter();
 
-	const linksBuilder = (href: string, text: string, key: number) => (
-		<a href={href} key={key} target="_blank" rel="noreferrer" dir="auto">
-			{text}
-		</a>
-	);
+	const [latestPost, setLatestPost] = useState<CyberAttackType | null>(() => {
+		axios
+			.get<{ cyberAttacks: CyberAttackType[] }>(`/api/cyber-attacks/?amount=${1}`)
+			.then(({ data: { cyberAttacks } }) =>
+				setLatestPost(cyberAttacks.length > 0 && cyberAttacks[0] ? cyberAttacks[0] : null),
+			);
+		return null;
+	});
 
 	return (
 		<>
@@ -63,17 +68,21 @@ const Index: NextPage<PageProps> = () => {
 			</div>
 
 			<section className="flex flex-col-reverse lg:flex-row p-5 md:p-10 bg-gray-100 dark:bg-neutral-900 gap-10 break-words">
-				<article className="flex-1 p-2 pb-0 min-w-0">
-					<h2 className="font-bold text-2xl text-slate-500 dark:text-slate-300 mb-10 text-center">
-						התקפת הבוקר היומית
-					</h2>
-					<div className="p-10 rounded-3xl border-2 border-r-0 dark:border-none bg-gray-50 dark:bg-neutral-800">
-						<h1 className="font-bold text-3xl mb-2">Windows Utilman Attack</h1>
-						<h3 className="font-semibold mb-5">כתב: רן דוד </h3>
-						<p className="whitespace-pre-wrap dark:text-gray-300">
-							<ReactLinkify componentDecorator={linksBuilder}>{hatkafaExs}</ReactLinkify>
+				<article className="flex-1 dark:bg-neutral-900 rounded-xl overflow-hidden shadow-md dark:shadow-none border-4 dark:border-none m-2 lg:m-0">
+					<div className="p-10 bg-gray-100 border-b-4 dark:border-b-0 dark:bg-neutral-800">
+						<h1 className="font-bold text-3xl mb-2 truncate">{latestPost?.title}</h1>
+						<h3 className="font-semibold mb-5 truncate">
+							כתב: <a className="font-bold">{latestPost?.author.name}</a>
+						</h3>
+						<p className="font-semibold">
+							עודכן לאחרונה:{' '}
+							<span className="font-bold">
+								{dayjs(latestPost?.date).format('DD/MM/YY')} ב-
+								{dayjs(latestPost?.date).format('HH:mm')}
+							</span>
 						</p>
 					</div>
+					{latestPost && <Preview doc={latestPost?.markdownContent} />}
 				</article>
 				<div className="w-[6px] bg-gray-300 dark:bg-neutral-600 rounded-full" />
 				<article className="flex-1 flex flex-col min-w-0">
