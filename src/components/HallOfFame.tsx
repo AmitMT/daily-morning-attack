@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import React, { FC, useState } from 'react';
 
 import { LinkIcon } from '@heroicons/react/outline';
@@ -28,11 +29,7 @@ const HallOfFame: FC<HallOfFameProps> = ({ amount, ...props }) => {
 				<ol className="flex flex-col gap-2 py-5 -my-5 md:py-0 md:my-0">
 					{latestPosts &&
 						latestPosts.map((post) => (
-							<Link
-								href="/cyber-attacks/1/"
-								// eslint-disable-next-line no-underscore-dangle
-								key={post._id?.toString()}
-							>
+							<Link href={`/cyber-attacks/${post._id}/`} key={post._id?.toString()}>
 								<div className="flex items-center p-2 px-4 font-bold bg-gray-50 dark:bg-neutral-800 border-2 dark:border-none rounded-md cursor-pointer whitespace-nowrap text-gray-700 dark:text-gray-200 group transition-all hover:bg-white dark:hover:bg-neutral-700">
 									<p className="border-l-2 dark:border-neutral-700 pl-2 ml-2">
 										{dayjs(post.date).format('DD/MM/YY')}

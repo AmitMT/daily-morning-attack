@@ -7,6 +7,7 @@
 	transition: background-color 0.3s ease;
 	outline: none;
 	-webkit-tap-highlight-color: transparent;
+	scroll-behavior: smooth;
 }
 
 a {
@@ -27,10 +28,12 @@ a:visited {
 }
 
 .preview.markdown-body {
-	@apply flex-1 rounded-l-lg border-4 border-r-0 dark:border-0;
-
 	padding: 12px;
 	overflow: auto;
+}
+
+.edit-view > .preview.markdown-body {
+	@apply flex-1 rounded-l-lg border-4 border-r-0 dark:border-0;
 }
 
 .preview.markdown-body pre {
@@ -62,6 +65,10 @@ a:visited {
 	border-right: 0.25em solid var(--color-border-default);
 	border-radius: 0.25em;
 	border-left: none;
+}
+
+.preview strong {
+	font-weight: bold !important;
 }
 
 .cm-editor {

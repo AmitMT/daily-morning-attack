@@ -46,7 +46,7 @@ const Edit: NextPage<EditProps> = () => {
 				<p className="font-bold text-2xl">כותב: {session?.user?.name}</p>
 			</div>
 			<div className="flex-1 flex flex-col p-5 bg-gray-100 dark:bg-neutral-900 w-full">
-				<div className="[flex:1_1_auto] flex h-0 overflow-hidden rounded-lg relative">
+				<div className="[flex:1_1_auto] flex h-0 overflow-hidden rounded-lg relative edit-view">
 					<Editor onChange={handleChange} initialDoc={value} />
 					<a
 						className="absolute left-[calc(50%_+_40px)] bottom-5 bg-neutral-900 aspect-square w-10 p-1 rounded-full shadow-lg"
