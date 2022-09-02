@@ -90,7 +90,6 @@ const CyberAttack: NextPage<CyberAttackProps> = () => {
 														}}
 													>
 														- {h1.innerText}
-														ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
 													</a>
 												</li>
 											))}

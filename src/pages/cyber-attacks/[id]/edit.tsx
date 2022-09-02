@@ -64,9 +64,9 @@ const Edit: NextPage<EditProps> = () => {
 				onClick={() => {
 					setSending('pending');
 					axios
-						.post('/api/cyber-attacks/1/', { title, markdownContent: value })
-						.then(() => {
-							router.push('/cyber-attacks/1/');
+						.post('/api/cyber-attacks/', { title, markdownContent: value })
+						.then((res) => {
+							router.push(`/cyber-attacks/${res.data.id}/`);
 						})
 						.catch(() => {
 							setSending('idle');
