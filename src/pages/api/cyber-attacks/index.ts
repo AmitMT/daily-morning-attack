@@ -17,7 +17,7 @@ interface ResponseData {
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<ResponseData>) {
 	if (req.method === 'GET') {
-		const { amount } = req.query;
+		const { amount, allData } = req.query;
 
 		await connect();
 
@@ -28,6 +28,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 						.sort({ date: -1 })
 						.populate('author')
 						.limit(parseInt(amount, 10))
+						.select(allData === 'true' ? '' : '-markdownContent')
 						.exec(),
 				});
 			return res.json({

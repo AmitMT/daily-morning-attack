@@ -10,7 +10,10 @@ import { Session } from 'next-auth';
 import { getSession } from 'next-auth/react';
 
 type SetServerSideProtectedView = <
-	P extends { [key: string]: any } = { [key: string]: any },
+	P extends { session: Session | null; [key: string]: any } = {
+		session: Session | null;
+		[key: string]: any;
+	},
 	Q extends ParsedUrlQuery = ParsedUrlQuery,
 	D extends PreviewData = PreviewData,
 >(
@@ -43,11 +46,14 @@ export const setServerSideProtectedView: SetServerSideProtectedView = (getServer
 };
 
 type SetServerSideSessionView = <
-	P extends { [key: string]: any } = { [key: string]: any },
+	P extends { session: Session | null; [key: string]: any } = {
+		session: Session | null;
+		[key: string]: any;
+	},
 	Q extends ParsedUrlQuery = ParsedUrlQuery,
 	D extends PreviewData = PreviewData,
 >(
-	getServerSideProps?: GetServerSideProps<P, Q, D>,
+	getServerSideProps?: GetServerSideProps<Omit<P, 'session'>, Q, D>,
 ) => GetServerSideProps<P & { session: Session | null }, Q, D>;
 
 export const setServerSideSessionView: SetServerSideSessionView = (getServerSideProps) => {

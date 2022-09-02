@@ -1,38 +1,30 @@
 import React, { useEffect, useState } from 'react';
 
-import axios from 'axios';
 import dayjs from 'dayjs';
 import { NextPage } from 'next';
-import { useRouter } from 'next/router';
+import { Session } from 'next-auth';
 
 import CustomHeader from '../../../components/CustomHeader';
 import Preview from '../../../components/Preview';
 import { setServerSideSessionView } from '../../../lib/auth/serverSideSession';
-import { CyberAttackType } from '../../../models/CyberAttack';
+import { connect } from '../../../lib/mongodb/connection';
+import dbCyberAttack, { CyberAttackType } from '../../../models/CyberAttack';
 
-export interface CyberAttackProps {}
+export interface CyberAttackProps {
+	session: Session | null;
+	cyberAttack: CyberAttackType | null;
+}
 
-const CyberAttack: NextPage<CyberAttackProps> = () => {
+const CyberAttack: NextPage<CyberAttackProps> = ({ cyberAttack }) => {
 	const [sections, setSections] = useState<HTMLHeadingElement[] | null>();
 
 	const [rightWinState, setRightWinState] = useState<'open' | 'closed'>('closed');
 	const [leftWinState, setLeftWinState] = useState<'open' | 'closed'>('closed');
 
-	const router = useRouter();
-
-	const [content, setContent] = useState<CyberAttackType | null>(() => {
-		axios
-			.get<{ cyberAttack: CyberAttackType }>(`/api/cyber-attacks/${router.query.id}/`)
-			.then(({ data: { cyberAttack } }) => setContent(cyberAttack));
-
-		return null;
-	});
-	console.log(content);
-
 	useEffect(() => {
 		const parent = document.getElementById('markdown-preview');
 		if (parent) setSections(Array.from(parent.querySelectorAll('h1')));
-	}, [content]);
+	}, []);
 
 	return (
 		<>
@@ -99,19 +91,19 @@ const CyberAttack: NextPage<CyberAttackProps> = () => {
 
 					<article className="max-w-4xl dark:bg-neutral-900 rounded-xl overflow-hidden shadow-md dark:shadow-none border-4 dark:border-none m-2 lg:m-0">
 						<div className="p-10 bg-gray-100 border-b-4 dark:border-b-0 dark:bg-neutral-800">
-							<h1 className="font-bold text-3xl mb-2 truncate">{content?.title}</h1>
+							<h1 className="font-bold text-3xl mb-2 truncate">{cyberAttack?.title}</h1>
 							<h3 className="font-semibold mb-5 truncate">
-								כתב: <a className="font-bold">{content?.author.name}</a>
+								כתב: <a className="font-bold">{cyberAttack?.author.name}</a>
 							</h3>
 							<p className="font-semibold">
 								עודכן לאחרונה:{' '}
 								<span className="font-bold">
-									{dayjs(content?.date).format('DD/MM/YY')} ב-
-									{dayjs(content?.date).format('HH:mm')}
+									{dayjs(cyberAttack?.date).format('DD/MM/YY')} ב-
+									{dayjs(cyberAttack?.date).format('HH:mm')}
 								</span>
 							</p>
 						</div>
-						{content && <Preview doc={content?.markdownContent} />}
+						{cyberAttack && <Preview doc={cyberAttack?.markdownContent} />}
 					</article>
 
 					<aside
@@ -176,6 +168,18 @@ const CyberAttack: NextPage<CyberAttackProps> = () => {
 	);
 };
 
-export const getServerSideProps = setServerSideSessionView();
+export const getServerSideProps = setServerSideSessionView<CyberAttackProps>(async ({ params }) => {
+	await connect();
+
+	const cyberAttack = JSON.parse(
+		JSON.stringify(await dbCyberAttack.findById(params?.id).populate('author').exec()),
+	) as CyberAttackType;
+
+	return {
+		props: {
+			cyberAttack,
+		},
+	};
+});
 
 export default CyberAttack;

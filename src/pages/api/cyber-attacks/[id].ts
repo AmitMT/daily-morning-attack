@@ -1,5 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 
+import { connect } from '../../../lib/mongodb/connection';
 import CyberAttack from '../../../models/CyberAttack';
 
 interface ResponseData {
@@ -13,6 +14,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 		if (!id || Array.isArray(id))
 			return res.status(400).json({ error: 'Please provide the id you want to fetch' });
 		try {
+			await connect();
+
 			return res.json({
 				cyberAttack: await CyberAttack.findById(id).populate('author').exec(),
 			});
