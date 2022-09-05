@@ -171,13 +171,13 @@ const CyberAttack: NextPage<CyberAttackProps> = ({ cyberAttack }) => {
 export const getServerSideProps = setServerSideSessionView<CyberAttackProps>(async ({ params }) => {
 	await connect();
 
-	const cyberAttack = JSON.parse(
-		JSON.stringify(await dbCyberAttack.findById(params?.id).populate('author').exec()),
-	) as CyberAttackType;
+	// const cyberAttack = JSON.parse(
+	// 	JSON.stringify(await dbCyberAttack.findById(params?.id).populate('author').exec()),
+	// ) as CyberAttackType;
 
 	return {
 		props: {
-			cyberAttack,
+			cyberAttack: await dbCyberAttack.findById(params?.id).exec(),
 		},
 	};
 });
