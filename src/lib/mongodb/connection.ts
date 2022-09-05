@@ -1,3 +1,4 @@
+// @ts-nocheck
 import mongoose from 'mongoose';
 
 import CyberAttack from '../../models/CyberAttack';
