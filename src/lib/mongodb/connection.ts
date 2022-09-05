@@ -1,5 +1,7 @@
 import mongoose from 'mongoose';
 
+import CyberAttack from '../../models/CyberAttack';
+import User from '../../models/User';
 import globalCache from '../../types/global';
 
 const { MONGODB_URI } = process.env;
@@ -23,6 +25,10 @@ export const connect = async () => {
 			autoIndex: true,
 		});
 
+		// eslint-disable-next-line no-underscore-dangle, @typescript-eslint/naming-convention, unused-imports/no-unused-vars
+		const _a = new User();
+		// eslint-disable-next-line no-underscore-dangle, @typescript-eslint/naming-convention, unused-imports/no-unused-vars
+		const _b = new CyberAttack();
 		console.log('Mongoose Connection Established');
 	}
 
