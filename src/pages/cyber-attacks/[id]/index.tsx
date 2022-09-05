@@ -174,9 +174,9 @@ export const getServerSideProps = setServerSideSessionView<CyberAttackProps>(asy
 	await connect();
 
 	try {
-		const cyberAttack = JSON.parse(
-			JSON.stringify(await dbCyberAttack.findById(params?.id).populate('author').exec()),
-		) as CyberAttackType;
+		const cyberAttack = JSON.stringify(
+			(await dbCyberAttack.findById(params?.id).populate('author').exec()) as any,
+		);
 
 		return {
 			props: {
@@ -184,9 +184,11 @@ export const getServerSideProps = setServerSideSessionView<CyberAttackProps>(asy
 			},
 		};
 	} catch (e) {
+		console.log(e);
+
 		return {
 			props: {
-				cyberAttack: e as any,
+				cyberAttack: JSON.parse(JSON.stringify(e)),
 			},
 		};
 	}
