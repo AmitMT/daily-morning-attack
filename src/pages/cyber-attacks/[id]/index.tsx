@@ -1,21 +1,22 @@
 import React, { useEffect, useState } from 'react';
 
+import dayjs from 'dayjs';
+import mongoose from 'mongoose';
 import { NextPage } from 'next';
 import { Session } from 'next-auth';
 
 import CustomHeader from '../../../components/CustomHeader';
+import Preview from '../../../components/Preview';
 import { setServerSideSessionView } from '../../../lib/auth/serverSideSession';
 import { connect } from '../../../lib/mongodb/connection';
-import { CyberAttackType } from '../../../models/CyberAttack';
+import dbCyberAttack, { CyberAttackType } from '../../../models/CyberAttack';
 
 export interface CyberAttackProps {
 	session: Session | null;
-	cyberAttack: CyberAttackType | null | string;
+	cyberAttack: CyberAttackType | null;
 }
 
 const CyberAttack: NextPage<CyberAttackProps> = ({ cyberAttack }) => {
-	console.log(cyberAttack);
-
 	const [sections, setSections] = useState<HTMLHeadingElement[] | null>();
 
 	const [rightWinState, setRightWinState] = useState<'open' | 'closed'>('closed');
@@ -89,7 +90,7 @@ const CyberAttack: NextPage<CyberAttackProps> = ({ cyberAttack }) => {
 						</div>
 					</aside>
 
-					{/* <article className="max-w-4xl dark:bg-neutral-900 rounded-xl overflow-hidden shadow-md dark:shadow-none border-4 dark:border-none m-2 lg:m-0">
+					<article className="max-w-4xl dark:bg-neutral-900 rounded-xl overflow-hidden shadow-md dark:shadow-none border-4 dark:border-none m-2 lg:m-0">
 						<div className="p-10 bg-gray-100 border-b-4 dark:border-b-0 dark:bg-neutral-800">
 							<h1 className="font-bold text-3xl mb-2 truncate">{cyberAttack?.title}</h1>
 							<h3 className="font-semibold mb-5 truncate">
@@ -104,7 +105,7 @@ const CyberAttack: NextPage<CyberAttackProps> = ({ cyberAttack }) => {
 							</p>
 						</div>
 						{cyberAttack && <Preview doc={cyberAttack?.markdownContent} />}
-					</article> */}
+					</article>
 
 					<aside
 						className={`fixed 2xl:w-80 rounded-xl top-[50vh] 2xl:top-0 left-0 h-full 2xl:h-auto transition-all pl-2 2xl:pl-0 ${
@@ -168,17 +169,18 @@ const CyberAttack: NextPage<CyberAttackProps> = ({ cyberAttack }) => {
 	);
 };
 
-export const getServerSideProps = setServerSideSessionView<CyberAttackProps>(async () => {
+export const getServerSideProps = setServerSideSessionView<CyberAttackProps>(async ({ params }) => {
 	await connect();
 
-	// const cyberAttack =
-	// 	// JSON.parse(
-	// 	JSON.stringify(await dbCyberAttack.findById(params?.id).populate('author').exec(), null, 2);
-	// // ) as CyberAttackType;
+	mongoose.models = {};
+
+	const cyberAttack = JSON.parse(
+		JSON.stringify(await dbCyberAttack.findById(params?.id).populate('author').exec()),
+	) as CyberAttackType;
 
 	return {
 		props: {
-			cyberAttack: 'hi',
+			cyberAttack,
 		},
 	};
 });
