@@ -172,7 +172,9 @@ const CyberAttack: NextPage<CyberAttackProps> = ({ cyberAttack }) => {
 export const getServerSideProps = setServerSideSessionView<CyberAttackProps>(async ({ params }) => {
 	await connect();
 
-	mongoose.models = {};
+	delete mongoose.models.CyberAttack;
+	delete mongoose.models.User;
+	console.log(mongoose.models);
 
 	const cyberAttack = JSON.parse(
 		JSON.stringify(await dbCyberAttack.findById(params?.id).populate('author').exec()),
