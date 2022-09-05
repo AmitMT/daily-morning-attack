@@ -48,7 +48,9 @@ const CyberAttack: NextPage<CyberAttackProps> = ({ cyberAttack }) => {
 					<h1 className="font-bold text-4xl mb-2 md:mb-5 text-center md:text-6xl">
 						תקיפת בוקר יומית
 					</h1>
-					<p className="font-bold text-xl md:text-2xl">25/7/22</p>
+					<p className="font-bold text-xl md:text-2xl">
+						{dayjs(cyberAttack?.date).format('DD/MM/YY')}
+					</p>
 				</div>
 				<div className="flex justify-center gap-8">
 					<aside
@@ -124,7 +126,7 @@ const CyberAttack: NextPage<CyberAttackProps> = ({ cyberAttack }) => {
 									>
 										&#60;
 									</button>
-									<div className="max-h-[calc(100vh-16rem)] overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 dark:scrollbar-thumb-neutral-700 py-2 px-5">
+									<div className="max-h-[calc(100vh-16rem)] overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 dark:scrollbar-thumb-neutral-700 py-2 px-5 max-w-[calc(100vw-4rem)]">
 										<div>
 											<h3 className="font-bold mb-4">התקפות דומות</h3>
 											<ol className="font-semibold">

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import mongoose from 'mongoose';
 
 import CyberAttack from '../../models/CyberAttack';
@@ -16,6 +15,8 @@ if (!MONGODB_URI) throw new Error('Please add your MONGODB_URI to .env.local');
 
 globalCache.mongoose = globalCache.mongoose || { connection: null, promise: null };
 
+const randomAssCode = () => [new User(), new CyberAttack()]; // Add here all models and don't ask why
+
 export const connect = async () => {
 	if (!globalCache.mongoose) return null;
 
@@ -26,10 +27,8 @@ export const connect = async () => {
 			autoIndex: true,
 		});
 
-		// eslint-disable-next-line no-underscore-dangle, @typescript-eslint/naming-convention, unused-imports/no-unused-vars
-		const _a = new User();
-		// eslint-disable-next-line no-underscore-dangle, @typescript-eslint/naming-convention, unused-imports/no-unused-vars
-		const _b = new CyberAttack();
+		randomAssCode();
+
 		console.log('Mongoose Connection Established');
 	}
 
