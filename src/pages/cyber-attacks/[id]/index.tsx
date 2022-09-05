@@ -26,6 +26,8 @@ const CyberAttack: NextPage<CyberAttackProps> = ({ cyberAttack }) => {
 		if (parent) setSections(Array.from(parent.querySelectorAll('h1')));
 	}, []);
 
+	console.log(cyberAttack);
+
 	return (
 		<>
 			<CustomHeader />
