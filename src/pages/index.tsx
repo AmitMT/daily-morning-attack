@@ -27,6 +27,8 @@ type PageProps = {
 const Index: NextPage<PageProps> = ({ cyberAttacks, latestCyberAttack }) => {
 	const router = useRouter();
 
+	console.log({ cyberAttacks, latestCyberAttack });
+
 	return (
 		<>
 			<CustomHeader />
