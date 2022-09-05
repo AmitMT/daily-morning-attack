@@ -186,7 +186,7 @@ export const getServerSideProps = setServerSideSessionView<CyberAttackProps>(asy
 	} catch (e) {
 		return {
 			props: {
-				cyberAttack: JSON.parse(JSON.stringify(e)),
+				cyberAttack: e as any,
 			},
 		};
 	}
