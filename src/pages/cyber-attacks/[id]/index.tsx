@@ -184,11 +184,9 @@ export const getServerSideProps = setServerSideSessionView<CyberAttackProps>(asy
 			},
 		};
 	} catch (e) {
-		console.log(e);
-
 		return {
 			props: {
-				cyberAttack: JSON.parse(JSON.stringify(e)),
+				cyberAttack: JSON.parse(JSON.stringify(e.message)),
 			},
 		};
 	}
