@@ -6,7 +6,7 @@ import { Session } from 'next-auth';
 import CustomHeader from '../../../components/CustomHeader';
 import { setServerSideSessionView } from '../../../lib/auth/serverSideSession';
 import { connect } from '../../../lib/mongodb/connection';
-import dbCyberAttack, { CyberAttackType } from '../../../models/CyberAttack';
+import { CyberAttackType } from '../../../models/CyberAttack';
 
 export interface CyberAttackProps {
 	session: Session | null;
@@ -168,17 +168,17 @@ const CyberAttack: NextPage<CyberAttackProps> = ({ cyberAttack }) => {
 	);
 };
 
-export const getServerSideProps = setServerSideSessionView<CyberAttackProps>(async ({ params }) => {
+export const getServerSideProps = setServerSideSessionView<CyberAttackProps>(async () => {
 	await connect();
 
-	const cyberAttack =
-		// JSON.parse(
-		JSON.stringify(await dbCyberAttack.findById(params?.id).populate('author').exec(), null, 2);
-	// ) as CyberAttackType;
+	// const cyberAttack =
+	// 	// JSON.parse(
+	// 	JSON.stringify(await dbCyberAttack.findById(params?.id).populate('author').exec(), null, 2);
+	// // ) as CyberAttackType;
 
 	return {
 		props: {
-			cyberAttack,
+			cyberAttack: 'hi',
 		},
 	};
 });
