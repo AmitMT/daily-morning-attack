@@ -66,7 +66,7 @@ const Index: NextPage<PageProps> = ({ cyberAttacks, latestCyberAttack }) => {
 			</div>
 
 			<section className="flex flex-col-reverse lg:flex-row p-5 md:p-10 bg-gray-100 dark:bg-neutral-900 gap-10 break-words">
-				<article className="flex-1 dark:bg-neutral-900 rounded-xl overflow-hidden shadow-md dark:shadow-none border-4 dark:border-none m-2 lg:m-0">
+				<article className="lg:flex-1 dark:bg-neutral-900 rounded-xl overflow-hidden shadow-md dark:shadow-none border-4 dark:border-none m-2 lg:m-0">
 					<div className="p-10 bg-gray-100 border-b-4 dark:border-b-0 dark:bg-neutral-800">
 						<h1 className="font-bold text-3xl mb-2 truncate">{latestCyberAttack?.title}</h1>
 						<h3 className="font-semibold mb-5 truncate">
@@ -83,7 +83,7 @@ const Index: NextPage<PageProps> = ({ cyberAttacks, latestCyberAttack }) => {
 					{latestCyberAttack && <Preview doc={latestCyberAttack?.markdownContent} />}
 				</article>
 				<div className="w-[6px] bg-gray-300 dark:bg-neutral-600 rounded-full" />
-				<article className="flex-1 flex flex-col min-w-0">
+				<article className="lg:flex-1 flex flex-col min-w-0">
 					<h2 className="font-bold text-2xl text-slate-500 dark:text-slate-300 mb-10 text-center">
 						היכל התהילה
 					</h2>
