@@ -179,7 +179,7 @@ export const getServerSideProps = setServerSideSessionView<CyberAttackProps>(asy
 
 	return {
 		props: {
-			cyberAttack: await dbCyberAttack.findById(params?.id).exec(),
+			cyberAttack: JSON.parse(JSON.stringify(await dbCyberAttack.findById(params?.id).exec())),
 		},
 	};
 });
