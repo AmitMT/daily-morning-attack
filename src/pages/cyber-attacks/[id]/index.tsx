@@ -117,9 +117,6 @@ const CyberAttack: NextPage<CyberAttackProps> = ({ cyberAttack }) => {
 						<div className="inline-block 2xl:sticky top-1/2 -translate-y-1/2 2xl:translate-y-0 2xl:top-32 float-right bg-white dark:bg-neutral-800 rounded-xl py-3 border-4 dark:border-none max-w-xs">
 							{sections && sections.length > 0 && (
 								<>
-									block 2xl:hidden float-left w-5 h-10 bg-white border-4 border-r-0
-									dark:bg-neutral-800 rounded-l-xl absolute left-0 -translate-x-full top-1/2
-									-translate-y-1/2 font-bold
 									<button
 										className="block 2xl:hidden float-right w-7 dark:w-5 h-10 bg-white border-4 border-l-0 dark:bg-neutral-800 dark:border-0 rounded-r-xl absolute right-0 translate-x-full top-1/2 -translate-y-1/2 font-bold"
 										onClick={() => {
@@ -153,7 +150,7 @@ const CyberAttack: NextPage<CyberAttackProps> = ({ cyberAttack }) => {
 											</ol>
 										</div>
 										<div>
-											<h3 className="font-bold mb-4">התקפות חדשות</h3>
+											<h3 className="font-bold my-4">התקפות חדשות</h3>
 											<ol className="font-semibold">
 												{[...Array(30)].map((_n, i) => (
 													// eslint-disable-next-line react/no-array-index-key
