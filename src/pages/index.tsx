@@ -51,7 +51,7 @@ const Index: NextPage<PageProps> = ({ cyberAttacks, latestCyberAttack }) => {
 				</section>
 			</div>
 
-			<section className="flex flex-col-reverse lg:flex-row p-5 md:p-10 bg-gray-100 dark:bg-neutral-900 gap-10 break-words">
+			<section className="flex flex-col-reverse lg:flex-row md:p-10 bg-gray-100 dark:bg-neutral-900 gap-10 break-words">
 				<article className="lg:flex-1 dark:bg-neutral-900 rounded-xl overflow-hidden shadow-md dark:shadow-none border-4 dark:border-none m-2 lg:m-0">
 					<div className="p-10 bg-gray-100 border-b-4 dark:border-b-0 dark:bg-neutral-800">
 						<h1 className="font-bold text-3xl mb-2 truncate">{latestCyberAttack?.title}</h1>
