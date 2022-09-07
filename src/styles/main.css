@@ -88,6 +88,23 @@ a:visited {
 	align-items: center;
 }
 
+.glowing:hover {
+	scale: 110%;
+}
+
+.glowing:hover > div {
+	text-shadow: none;
+}
+
+.dark .glowing:hover {
+	scale: 100%;
+}
+
+.dark .glowing:hover > * {
+	text-shadow: 0 0 10px #fff;
+	scale: 100%;
+}
+
 @tailwind components;
 
 @tailwind utilities;

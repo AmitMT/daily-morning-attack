@@ -25,8 +25,7 @@ const CyberAttack: NextPage<CyberAttackProps> = ({ cyberAttack }) => {
 		const parent = document.getElementById('markdown-preview');
 		if (parent) setSections(Array.from(parent.querySelectorAll('h1')));
 	}, []);
-
-	console.log(cyberAttack);
+	console.log(sections);
 
 	return (
 		<>
@@ -62,14 +61,14 @@ const CyberAttack: NextPage<CyberAttackProps> = ({ cyberAttack }) => {
 							{sections && sections.length > 0 && (
 								<>
 									<button
-										className="block 2xl:hidden float-left w-5 h-10 bg-black rounded-l-xl absolute left-0 -translate-x-full top-1/2 -translate-y-1/2 font-bold"
+										className="block 2xl:hidden float-left w-7 dark:w-5 h-10 bg-white border-4 border-r-0 dark:bg-neutral-800 dark:border-0 rounded-l-xl absolute left-0 -translate-x-full top-1/2 -translate-y-1/2 font-bold"
 										onClick={() => {
 											rightWinState === 'open'
 												? setRightWinState('closed')
 												: setRightWinState('open');
 										}}
 									>
-										&#62;
+										{rightWinState === 'open' ? '<' : '>'}
 									</button>
 									<div className="max-h-[calc(100vh-16rem)] overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 dark:scrollbar-thumb-neutral-700 py-2 px-5">
 										<h3 className="font-bold mb-4">בעמוד זה</h3>
@@ -118,13 +117,16 @@ const CyberAttack: NextPage<CyberAttackProps> = ({ cyberAttack }) => {
 						<div className="inline-block 2xl:sticky top-1/2 -translate-y-1/2 2xl:translate-y-0 2xl:top-32 float-right bg-white dark:bg-neutral-800 rounded-xl py-3 border-4 dark:border-none max-w-xs">
 							{sections && sections.length > 0 && (
 								<>
+									block 2xl:hidden float-left w-5 h-10 bg-white border-4 border-r-0
+									dark:bg-neutral-800 rounded-l-xl absolute left-0 -translate-x-full top-1/2
+									-translate-y-1/2 font-bold
 									<button
-										className="block 2xl:hidden float-right w-5 h-10 bg-black rounded-r-xl absolute right-0 translate-x-full top-1/2 -translate-y-1/2 font-bold"
+										className="block 2xl:hidden float-right w-7 dark:w-5 h-10 bg-white border-4 border-l-0 dark:bg-neutral-800 dark:border-0 rounded-r-xl absolute right-0 translate-x-full top-1/2 -translate-y-1/2 font-bold"
 										onClick={() => {
 											leftWinState === 'open' ? setLeftWinState('closed') : setLeftWinState('open');
 										}}
 									>
-										&#60;
+										{leftWinState === 'open' ? '>' : '<'}
 									</button>
 									<div className="max-h-[calc(100vh-16rem)] overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 dark:scrollbar-thumb-neutral-700 py-2 px-5 max-w-[calc(100vw-4rem)]">
 										<div>

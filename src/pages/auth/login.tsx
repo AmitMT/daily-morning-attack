@@ -27,7 +27,9 @@ export interface LoginProps {
 const Login: NextPage<LoginProps> = ({ providers }) => {
 	const router = useRouter();
 
-	const [authType, setAuthType] = useState<'Login' | 'Register'>('Login');
+	const [authType, setAuthType] = useState<'Login' | 'Register'>(
+		router.query.method === 'register' ? 'Register' : 'Login',
+	);
 	const [formState, setFormState] = useState<FormState>('idle');
 	const [serverError, setServerError] = useState<string | undefined>();
 

@@ -26,6 +26,7 @@
 		"@codemirror/matchbrackets": "^0.19.1",
 		"@codemirror/state": "^0.19.0",
 		"@codemirror/theme-one-dark": "^0.19.0",
+		"@headlessui/react": "^1.7.0",
 		"@heroicons/react": "^1.0.6",
 		"@hookform/resolvers": "^2.9.7",
 		"@next-auth/mongodb-adapter": "^1.0.4",

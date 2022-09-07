@@ -5,7 +5,6 @@ import { LinkIcon } from '@heroicons/react/outline';
 import dayjs from 'dayjs';
 import { NextPage } from 'next';
 import { Session } from 'next-auth';
-import { signIn, signOut } from 'next-auth/react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -50,19 +49,6 @@ const Index: NextPage<PageProps> = ({ cyberAttacks, latestCyberAttack }) => {
 						היבט התקפי והסבירו בצורה פשוטה וקריאה להבנה.
 					</p>
 				</section>
-			</div>
-
-			<div className="text-center">
-				<h2 className="text-xl">Temp links</h2>
-				<div>
-					<button onClick={() => signIn()}>login</button>
-					<br />
-					<button onClick={() => signOut()}>signOut</button>
-				</div>
-
-				<Link href="/cyber-attacks/1/edit">
-					<a>Edit an Attack</a>
-				</Link>
 			</div>
 
 			<section className="flex flex-col-reverse lg:flex-row p-5 md:p-10 bg-gray-100 dark:bg-neutral-900 gap-10 break-words">
