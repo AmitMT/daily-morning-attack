@@ -34,7 +34,7 @@ const Edit: NextPage<EditProps> = ({ cyberAttack }) => {
 
 	return (
 		<div className="flex-1 flex flex-col">
-			<div className="flex flex-col items-center justify-center bg-gray-50 dark:bg-transparent p-14">
+			<div className="flex flex-col items-center justify-center bg-gray-50 dark:bg-transparent py-14 px-2">
 				<h1 className="flex font-bold text-6xl mb-5">
 					<input
 						value={title}
@@ -43,12 +43,12 @@ const Edit: NextPage<EditProps> = ({ cyberAttack }) => {
 						}}
 						placeholder="כותרת"
 						dir="auto"
-						className="p-2 bg-gray-100 border-4 dark:border-0 focus:bg-white dark:bg-neutral-700/50 dark:focus:bg-neutral-700 rounded-lg w-full md:w-[50vw] text-center"
+						className="p-2 bg-gray-100 border-4 dark:border-0 focus:bg-white dark:bg-neutral-700/50 dark:focus:bg-neutral-700 rounded-lg w-full lg:w-[75vw] text-center"
 					/>
 				</h1>
 				<p className="font-bold text-2xl">כותב: {cyberAttack?.author?.name}</p>
 			</div>
-			<div className="flex-1 flex flex-col p-5 bg-gray-100 dark:bg-neutral-900 w-full">
+			<div className="md:flex-1 flex flex-col p-5 bg-gray-100 dark:bg-neutral-900 w-full h-[calc(100vh-7.5rem)] md:h-auto">
 				<div className="[flex:1_1_auto] flex h-0 overflow-hidden rounded-lg relative edit-view">
 					<Editor onChange={handleChange} initialDoc={value} />
 					<a
