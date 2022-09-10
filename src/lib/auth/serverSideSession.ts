@@ -20,7 +20,7 @@ type SetServerSideProtectedView = <
 	getServerSideProps?: (
 		context: GetServerSidePropsContext<Q, D>,
 		session: Session,
-	) => Promise<GetServerSidePropsResult<P>>,
+	) => Promise<GetServerSidePropsResult<Omit<P, 'session'>>>,
 ) => GetServerSideProps<P & { session: Session | null }, Q, D>;
 
 export const setServerSideProtectedView: SetServerSideProtectedView = (getServerSideProps) => {

@@ -3,7 +3,9 @@ import React, { FC } from 'react';
 
 import {
 	ArrowCircleLeftIcon,
+	LockClosedIcon,
 	MoonIcon,
+	PencilAltIcon,
 	PlusIcon,
 	SunIcon,
 	UserIcon,
@@ -23,29 +25,29 @@ const loggedInDropdown: OptionGroup[] = [
 	[
 		{
 			content: (
-				<button className="flex mr-auto">
-					<UserIcon className="w-5 mr-2" />
-					Profile
+				<button className="flex w-full p-2" onClick={() => Router.router?.push('/profile')}>
+					<UserIcon className="w-5 ml-2" />
+					פרופיל
 				</button>
 			),
 		},
 		{
 			content: (
 				<button
-					className="flex mr-auto"
-					onClick={() => Router.router?.push('/cyber-attacks/1/edit')}
+					className="flex w-full p-2"
+					onClick={() => Router.router?.push('/cyber-attacks/create')}
 				>
-					<PlusIcon className="w-5 mr-2" />
-					Create New Attack
+					<PlusIcon className="w-5 ml-2" />
+					צור מתקפה חדשה
 				</button>
 			),
 		},
 	],
 	{
 		content: (
-			<button onClick={() => signOut()} className="flex mr-auto">
-				<ArrowCircleLeftIcon className="w-5 mr-2" />
-				Log out
+			<button onClick={() => signOut()} className="flex w-full p-2">
+				<ArrowCircleLeftIcon className="w-5 ml-2" />
+				התנתק
 			</button>
 		),
 	},
@@ -53,16 +55,25 @@ const loggedInDropdown: OptionGroup[] = [
 
 const noSessionDropdown: OptionGroup[] = [
 	[
-		{ content: <div onClick={() => signIn()}>Login</div> },
 		{
 			content: (
-				<div
+				<button onClick={() => signIn()} className="flex w-full p-2">
+					<LockClosedIcon className="w-5 ml-2" />
+					התחבר
+				</button>
+			),
+		},
+		{
+			content: (
+				<button
 					onClick={() =>
 						Router.router?.push(`/auth/login/?callbackUrl=${window.location.href}&method=register`)
 					}
+					className="flex w-full p-2"
 				>
-					Register
-				</div>
+					<PencilAltIcon className="w-5 ml-2" />
+					הירשם
+				</button>
 			),
 		},
 	],
@@ -76,11 +87,11 @@ const Navbar: FC<NavbarProps> = ({ ...props }) => {
 	return (
 		<nav
 			{...props}
-			className="flex justify-center shadow-xl dark:shadow-black/20 z-40 bg-indigo-300 dark:bg-neutral-800 h-16"
+			className="flex justify-center shadow-xl dark:shadow-black/20 z-40 bg-indigo-200 dark:bg-neutral-800 h-16"
 		>
 			<div className="flex flex-1 px-2 lg:px-20">
 				<Link href="/">
-					<p className="font-bold cursor-pointer text-lg my-[0.4rem] md:text-2xl md:my-1 flex items-center">
+					<button className="font-bold cursor-pointer text-lg my-[0.4rem] md:text-2xl md:my-1 flex items-center">
 						<div className="ml-4 flex items-center relative pt-3">
 							<Image
 								src={`${router.basePath}/logoSVG.svg`}
@@ -90,7 +101,7 @@ const Navbar: FC<NavbarProps> = ({ ...props }) => {
 							/>
 						</div>
 						<div className="w-24 sm:w-auto">{AppConfig.title}</div>
-					</p>
+					</button>
 				</Link>
 				<div className="flex-1 flex flex-row-reverse p-2 pl-0">
 					<Dropdown
@@ -101,20 +112,22 @@ const Navbar: FC<NavbarProps> = ({ ...props }) => {
 						direction="right"
 					>
 						<button
-							className={`flex items-center justify-center bg-neutral-100 dark:bg-neutral-600 border-gray-400 rounded-full overflow-hidden aspect-square transition-all duration-300 cursor-pointer relative ${
+							className={`flex items-center justify-center bg-neutral-100 dark:bg-neutral-600 border-gray-400 rounded-full overflow-hidden aspect-square transition-all duration-300 cursor-pointer relative${
 								session?.user
 									? ' hover:scale-110 active:scale-100 dark:hover:bg-neutral-500'
-									: 'glowing'
+									: ' glowing'
 							}`}
 						>
 							{session?.user ? (
 								session.user.image ? (
-									<Image
-										src={session?.user?.image}
-										layout="fill"
-										objectFit="contain"
-										alt="user image"
-									/>
+									<div className="w-[calc(100%-8px)] h-[calc(100%-8px)] relative rounded-full overflow-hidden">
+										<Image
+											src={session?.user?.image}
+											layout="fill"
+											objectFit="contain"
+											alt="user image"
+										/>
+									</div>
 								) : (
 									<UserIcon className="w-6" />
 								)

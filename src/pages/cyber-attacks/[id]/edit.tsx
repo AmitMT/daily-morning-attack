@@ -1,23 +1,26 @@
+/* eslint-disable no-underscore-dangle */
 import React, { useCallback, useState } from 'react';
 
 import { QuestionMarkCircleIcon } from '@heroicons/react/outline';
 import axios from 'axios';
 import { NextPage } from 'next';
-import { useSession } from 'next-auth/react';
+import { Session } from 'next-auth';
 import { useRouter } from 'next/router';
 
 import Editor from '../../../components/Editor';
 import Preview from '../../../components/Preview';
-import useLocalStorage from '../../../hooks/useLocalStorage';
 import { setServerSideProtectedView } from '../../../lib/auth/serverSideSession';
+import { connect } from '../../../lib/mongodb/connection';
+import dbCyberAttack, { CyberAttackType } from '../../../models/CyberAttack';
 
-export interface EditProps {}
+export interface EditProps {
+	session: Session | null;
+	cyberAttack: CyberAttackType | null;
+}
 
-const Edit: NextPage<EditProps> = () => {
-	const { data: session } = useSession();
-
-	const [title, setTitle] = useLocalStorage('edited cyber attack title', '');
-	const [value, setValue] = useLocalStorage('edited cyber attack', '# Hi!');
+const Edit: NextPage<EditProps> = ({ cyberAttack }) => {
+	const [title, setTitle] = useState(cyberAttack?.title || '');
+	const [value, setValue] = useState(cyberAttack?.markdownContent || '');
 	const [sending, setSending] = useState<'idle' | 'pending'>('idle');
 
 	const router = useRouter();
@@ -43,7 +46,7 @@ const Edit: NextPage<EditProps> = () => {
 						className="p-2 bg-gray-100 border-4 dark:border-0 focus:bg-white dark:bg-neutral-700/50 dark:focus:bg-neutral-700 rounded-lg w-full md:w-[50vw] text-center"
 					/>
 				</h1>
-				<p className="font-bold text-2xl">כותב: {session?.user?.name}</p>
+				<p className="font-bold text-2xl">כותב: {cyberAttack?.author?.name}</p>
 			</div>
 			<div className="flex-1 flex flex-col p-5 bg-gray-100 dark:bg-neutral-900 w-full">
 				<div className="[flex:1_1_auto] flex h-0 overflow-hidden rounded-lg relative edit-view">
@@ -64,22 +67,37 @@ const Edit: NextPage<EditProps> = () => {
 				onClick={() => {
 					setSending('pending');
 					axios
-						.post('/api/cyber-attacks/', { title, markdownContent: value })
-						.then((res) => {
-							router.push(`/cyber-attacks/${res.data.id}/`);
+						.post(`/api/cyber-attacks/${router.query.id}`, {
+							id: cyberAttack?._id,
+							title,
+							markdownContent: value,
 						})
-						.catch(() => {
-							setSending('idle');
-						});
+						.catch(() => {});
+					setSending('idle');
+					router.push(`/cyber-attacks/${cyberAttack?._id}/`);
 				}}
 				disabled={sending === 'pending'}
 			>
-				שלח לאיתי ברוק
+				עדכן
 			</button>
 		</div>
 	);
 };
 
-export const getServerSideProps = setServerSideProtectedView();
+export const getServerSideProps = setServerSideProtectedView(async ({ params }) => {
+	await connect();
+
+	const cyberAttack = JSON.parse(
+		JSON.stringify(
+			(await dbCyberAttack.findById(params?.id).populate('author').exec()) as CyberAttackType,
+		),
+	);
+
+	return {
+		props: {
+			cyberAttack,
+		},
+	};
+});
 
 export default Edit;

@@ -13,6 +13,7 @@ export type InputLabelProps = React.DetailedHTMLProps<
 	register: ReturnType<typeof useForm<any>>['register'];
 	name: string;
 	error?: FieldError;
+	dir?: 'ltr' | 'rtl' | 'auto';
 };
 
 const InputLabel: FC<InputLabelProps> = ({
@@ -24,6 +25,7 @@ const InputLabel: FC<InputLabelProps> = ({
 	register,
 	name,
 	error,
+	dir,
 	...props
 }) => {
 	return (
@@ -35,13 +37,16 @@ const InputLabel: FC<InputLabelProps> = ({
 				<div className="flex text-sm mb-1 font-medium text-gray-500 dark:text-gray-400 transition-colors group-focus-within:text-gray-900 dark:group-focus-within:text-gray-300">
 					<h3 className="flex-1">{title}</h3>
 					{optional && (
-						<p className="text-sky-900 dark:text-sky-300 font-normal opacity-50">Optional</p>
+						<p className="text-sky-900 dark:text-sky-300 opacity-50 font-semibold">Optional</p>
 					)}
 				</div>
-				<div className="flex justify-center items-center border-b-2 transition-colors border-b-gray-200 dark:border-b-neutral-600 group-focus-within:border-b-gray-400 dark:group-focus-within:border-b-gray-300 rounded-b-sm cursor-text">
+				<div
+					className="flex justify-center items-center border-b-2 transition-colors border-b-gray-200 dark:border-b-neutral-600 group-focus-within:border-b-gray-400 dark:group-focus-within:border-b-gray-300 rounded-b-sm cursor-text"
+					dir={dir || 'ltr'}
+				>
 					<Icon className="h-4 transition-colors text-gray-400 dark:text-gray-500 group-focus-within:text-gray-500 dark:group-focus-within:text-gray-300 mt-1" />
 					<input
-						className="flex-1 bg-transparent outline-none p-2 ml-1 rounded-t-md"
+						className="flex-1 bg-transparent outline-none p-2 [margin-inline-start:4px] rounded-t-md"
 						placeholder={placeholder}
 						id={name}
 						{...register(name)}

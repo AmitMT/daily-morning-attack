@@ -28,6 +28,16 @@ export const LoginSchema = z.object({
 
 export type LoginSchemaType = z.infer<typeof LoginSchema>;
 
+export const ProfileSettingsSchema = z.object({
+	username: z
+		.string()
+		.trim()
+		.min(1, 'Username cannot be empty')
+		.max(30, 'Username must contain at most 30 characters'),
+});
+
+export type ProfileSettingsSchemaType = z.infer<typeof ProfileSettingsSchema>;
+
 export const CyberAttackSchema = z.object({
 	title: z.string().trim().min(1, 'Title cannot be empty'),
 	markdownContent: z.string().min(1, 'The content cannot be empty'),

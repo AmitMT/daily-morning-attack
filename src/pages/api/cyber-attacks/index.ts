@@ -39,9 +39,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 		}
 	} else if (req.method === 'POST') {
 		const session = await unstable_getServerSession(req, res, authOptions);
-		if (!session || !session?.user?.name) {
-			res.status(401);
-		}
+		if (!session || !session?.user?.name) res.status(401);
 
 		const { title, markdownContent } = req.body;
 

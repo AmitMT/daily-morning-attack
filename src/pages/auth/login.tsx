@@ -85,7 +85,7 @@ const Login: NextPage<LoginProps> = ({ providers }) => {
 
 	useEffect(() => {
 		if (errors && Object.keys(errors).length > 0) setFormState('error');
-		else setFormState('idle');
+		else if (formState !== 'idle') setFormState('idle');
 	}, [errors]);
 
 	return (
@@ -94,11 +94,10 @@ const Login: NextPage<LoginProps> = ({ providers }) => {
 
 			<form
 				className="flex-1 flex flex-col items-center justify-center bg-gray-50 md:bg-gray-100 dark:bg-transparent"
-				dir="ltr"
 				onSubmit={(e) => e.preventDefault()}
 			>
 				<div className="flex flex-col items-center m-4 w-full sm:flex-none sm:w-full sm:max-w-md min-w-max bg-gray-50 dark:bg-transparent md:dark:bg-neutral-900 p-10 rounded-3xl md:border-2 dark:border-none overflow-auto">
-					<h1 className="font-bold text-4xl">{authType}</h1>
+					<h1 className="font-bold text-4xl">{authType === 'Login' ? 'התחבר' : 'הירשם'}</h1>
 
 					{providers &&
 						Object.values(providers).map(
@@ -124,16 +123,17 @@ const Login: NextPage<LoginProps> = ({ providers }) => {
 											height={28}
 											width={28}
 											alt="github logo"
-											className=""
 										/>
-										<p className="pl-4 text-lg font-semibold">Sign in with {provider.name}</p>
+										<p className="[padding-inline-start:16px] text-lg font-semibold">
+											התחבר באמצעות {provider.name}
+										</p>
 									</button>
 								),
 						)}
 
 					<InputLabel
-						title="Username"
-						placeholder="Type your username"
+						title="שם משתמש"
+						placeholder="הכנס את שם המשתמש שלך"
 						icon={UserIcon}
 						register={register}
 						name="username"
@@ -145,8 +145,8 @@ const Login: NextPage<LoginProps> = ({ providers }) => {
 						disabled={formState === 'processing'}
 					/>
 					<InputLabel
-						title="Email"
-						placeholder="Type your email"
+						title="אימייל"
+						placeholder="הכנס את האימייל שלך"
 						icon={AtSymbolIcon}
 						register={register}
 						name="email"
@@ -157,8 +157,8 @@ const Login: NextPage<LoginProps> = ({ providers }) => {
 						disabled={formState === 'processing'}
 					/>
 					<InputLabel
-						title="Password"
-						placeholder="Type your password"
+						title="סיסמה"
+						placeholder="סיסמה באורך 8 תווים לפחות"
 						icon={LockClosedIcon}
 						register={register}
 						name="password"
@@ -174,12 +174,11 @@ const Login: NextPage<LoginProps> = ({ providers }) => {
 					>
 						{authType === 'Login' ? (
 							<>
-								Not registered yet? <span className="text-blue-600 hover:underline">Register</span>
+								עוד לא רשום? <span className="text-blue-600 hover:underline">הירשם</span>
 							</>
 						) : (
 							<>
-								Already have an account?{' '}
-								<span className="text-blue-600 hover:underline">Login</span>
+								כבר יש לך חשבון? <span className="text-blue-600 hover:underline">התחבר</span>
 							</>
 						)}
 					</button>

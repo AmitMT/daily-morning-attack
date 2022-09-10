@@ -46,7 +46,7 @@ const message = "write code here in many supported languages";
 הערת שוליים. [^1]
 [^1]: תוכן הערת שוליים.
 
-![תמונה](https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/AmanLogo.svg/1200px-AmanLogo.svg.png)`);
+![תמונה](https://www.dogtime.com/assets/uploads/2011/03/puppy-development.jpg)`);
 
 	const handleChange = useCallback((newValue: string) => {
 		setValue(newValue);
@@ -58,7 +58,7 @@ const message = "write code here in many supported languages";
 				<h1 className="flex font-bold text-6xl mb-5">Markdown Cheatsheet</h1>
 			</div>
 			<div className="flex-1 flex flex-col p-5 bg-gray-100 dark:bg-neutral-900 w-full">
-				<div className="[flex:1_1_auto] flex h-0 overflow-hidden rounded-lg relative">
+				<div className="[flex:1_1_auto] flex h-0 overflow-hidden rounded-lg relative edit-view">
 					<Editor onChange={handleChange} initialDoc={value} />
 					<Preview doc={value} />
 				</div>

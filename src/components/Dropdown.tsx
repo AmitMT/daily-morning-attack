@@ -50,38 +50,38 @@ const Dropdown: FC<DropdownProps> = ({
 									optionGroup.map((option, j) => (
 										<Menu.Item key={j} disabled={option.disabled}>
 											{({ active, disabled }) => (
-												<button
+												<div
 													className={`${
 														disabled
 															? 'opacity-50'
 															: active
 															? activeClass
 															: 'text-gray-900 dark:text-gray-200'
-													} text-left transition-colors rounded-md px-2 py-2 text-sm pr-6 block w-full`}
+													} text-left transition-colors rounded-md text-sm block w-full`}
 												>
 													{typeof option.content === 'function'
 														? option.content(active, disabled)
 														: option.content}
-												</button>
+												</div>
 											)}
 										</Menu.Item>
 									))
 								) : (
 									<Menu.Item key={i} disabled={optionGroup.disabled}>
 										{({ active, disabled }) => (
-											<button
+											<div
 												className={`${
 													disabled
 														? 'opacity-50'
 														: active
 														? activeClass
 														: 'text-gray-900 dark:text-gray-200'
-												} text-left transition-colors rounded-md px-2 py-2 text-sm pr-6 block w-full`}
+												} text-left transition-colors rounded-md text-sm block w-full`}
 											>
 												{typeof optionGroup.content === 'function'
 													? optionGroup.content(active, disabled)
 													: optionGroup.content}
-											</button>
+											</div>
 										)}
 									</Menu.Item>
 								)}

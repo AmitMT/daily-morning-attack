@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import dayjs from 'dayjs';
 import { NextPage } from 'next';
 import { Session } from 'next-auth';
+import Link from 'next/link';
 
 import CustomHeader from '../../../components/CustomHeader';
 import Preview from '../../../components/Preview';
@@ -15,7 +16,7 @@ export interface CyberAttackProps {
 	cyberAttack: CyberAttackType | null;
 }
 
-const CyberAttack: NextPage<CyberAttackProps> = ({ cyberAttack }) => {
+const CyberAttack: NextPage<CyberAttackProps> = ({ cyberAttack, session }) => {
 	const [sections, setSections] = useState<HTMLHeadingElement[] | null>();
 
 	const [rightWinState, setRightWinState] = useState<'open' | 'closed'>('closed');
@@ -25,7 +26,6 @@ const CyberAttack: NextPage<CyberAttackProps> = ({ cyberAttack }) => {
 		const parent = document.getElementById('markdown-preview');
 		if (parent) setSections(Array.from(parent.querySelectorAll('h1')));
 	}, []);
-	console.log(sections);
 
 	return (
 		<>
@@ -50,6 +50,17 @@ const CyberAttack: NextPage<CyberAttackProps> = ({ cyberAttack }) => {
 					<p className="font-bold text-xl md:text-2xl">
 						{dayjs(cyberAttack?.date).format('DD/MM/YY')}
 					</p>
+
+					{session?.user?.email === cyberAttack?.author.email && (
+						<>
+							{/* eslint-disable-next-line no-underscore-dangle */}
+							<Link href={`/cyber-attacks/${cyberAttack?._id}/edit`}>
+								<button className="bg-green-500 dark:bg-green-700 p-3 mt-5 -mb-[68px] rounded-xl transition-all hover:scale-110 hover:bg-green-400 dark:hover:bg-green-600">
+									ערוך
+								</button>
+							</Link>
+						</>
+					)}
 				</div>
 				<div className="flex justify-center gap-8">
 					<aside
@@ -57,42 +68,40 @@ const CyberAttack: NextPage<CyberAttackProps> = ({ cyberAttack }) => {
 							rightWinState === 'closed' && ' translate-x-full'
 						} 2xl:translate-x-0 duration-500 2xl:relative`}
 					>
-						<div className="inline-block 2xl:sticky top-1/2 -translate-y-1/2 2xl:translate-y-0 2xl:top-32 float-left bg-white dark:bg-neutral-800 rounded-xl py-3 border-4 dark:border-none max-w-xs">
-							{sections && sections.length > 0 && (
-								<>
-									<button
-										className="block 2xl:hidden float-left w-7 dark:w-5 h-10 bg-white border-4 border-r-0 dark:bg-neutral-800 dark:border-0 rounded-l-xl absolute left-0 -translate-x-full top-1/2 -translate-y-1/2 font-bold"
-										onClick={() => {
-											rightWinState === 'open'
-												? setRightWinState('closed')
-												: setRightWinState('open');
-										}}
-									>
-										{rightWinState === 'open' ? '<' : '>'}
-									</button>
-									<div className="max-h-[calc(100vh-16rem)] overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 dark:scrollbar-thumb-neutral-700 py-2 px-5">
-										<h3 className="font-bold mb-4">בעמוד זה</h3>
-										<ol className="font-semibold">
-											{sections.map((h1) => (
-												<li key={h1.innerText} className="truncate">
-													<a
-														className="text-gray-600 dark:text-gray-400"
-														onClick={() => {
-															h1.scrollIntoView();
-														}}
-													>
-														- {h1.innerText}
-													</a>
-												</li>
-											))}
-										</ol>
-									</div>
-								</>
-							)}
-						</div>
+						{sections && sections.length > 0 && (
+							<div className="inline-block 2xl:sticky top-1/2 -translate-y-1/2 2xl:translate-y-0 2xl:top-32 float-left bg-white dark:bg-neutral-800 rounded-xl py-3 border-4 dark:border-none max-w-xs">
+								<button
+									className="block 2xl:hidden float-left w-7 dark:w-5 h-10 bg-white border-4 border-r-0 dark:bg-neutral-800 dark:border-0 rounded-l-xl absolute left-0 -translate-x-full top-1/2 -translate-y-1/2 font-bold"
+									onClick={() => {
+										rightWinState === 'open'
+											? setRightWinState('closed')
+											: setRightWinState('open');
+									}}
+								>
+									{rightWinState === 'open' ? '<' : '>'}
+								</button>
+								<div className="max-h-[calc(100vh-16rem)] overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 dark:scrollbar-thumb-neutral-700 py-2 px-5">
+									<h3 className="font-bold mb-4">בעמוד זה</h3>
+									<ol className="font-semibold">
+										{sections.map((h1) => (
+											<li key={h1.innerText} className="truncate">
+												<a
+													className="text-gray-600 dark:text-gray-400"
+													onClick={() => {
+														h1.scrollIntoView();
+													}}
+												>
+													- {h1.innerText}
+												</a>
+											</li>
+										))}
+									</ol>
+								</div>
+							</div>
+						)}
 					</aside>
 
-					<article className="max-w-4xl dark:bg-neutral-900 rounded-xl overflow-hidden shadow-md dark:shadow-none border-4 dark:border-none m-2 lg:m-0">
+					<article className="max-w-4xl dark:bg-neutral-900 rounded-xl overflow-hidden border-4 dark:border-none m-2 lg:m-0 h-max">
 						<div className="p-10 bg-gray-100 border-b-4 dark:border-b-0 dark:bg-neutral-800">
 							<h1 className="font-bold text-3xl mb-2 truncate">{cyberAttack?.title}</h1>
 							<h3 className="font-semibold mb-5 truncate">
@@ -115,54 +124,50 @@ const CyberAttack: NextPage<CyberAttackProps> = ({ cyberAttack }) => {
 						} 2xl:translate-x-0 duration-500 2xl:relative`}
 					>
 						<div className="inline-block 2xl:sticky top-1/2 -translate-y-1/2 2xl:translate-y-0 2xl:top-32 float-right bg-white dark:bg-neutral-800 rounded-xl py-3 border-4 dark:border-none max-w-xs">
-							{sections && sections.length > 0 && (
-								<>
-									<button
-										className="block 2xl:hidden float-right w-7 dark:w-5 h-10 bg-white border-4 border-l-0 dark:bg-neutral-800 dark:border-0 rounded-r-xl absolute right-0 translate-x-full top-1/2 -translate-y-1/2 font-bold"
-										onClick={() => {
-											leftWinState === 'open' ? setLeftWinState('closed') : setLeftWinState('open');
-										}}
-									>
-										{leftWinState === 'open' ? '>' : '<'}
-									</button>
-									<div className="max-h-[calc(100vh-16rem)] overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 dark:scrollbar-thumb-neutral-700 py-2 px-5 max-w-[calc(100vw-4rem)]">
-										<div>
-											<h3 className="font-bold mb-4">התקפות דומות</h3>
-											<ol className="font-semibold">
-												<li className="text-gray-600 dark:text-gray-400 truncate">
-													<span className="cursor-pointer">
-														Hatkafa
-														Domasssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
-													</span>
-												</li>
-												<li className="text-gray-600 dark:text-gray-400">
-													<span className="cursor-pointer">WSL debugging</span>
-												</li>
-												<li className="text-gray-600 dark:text-gray-400">
-													<span className="cursor-pointer">Windows unresponsive bug</span>
-												</li>
-												<li className="text-gray-600 dark:text-gray-400">
-													<span className="cursor-pointer">WSL debugging</span>
-												</li>
-												<li className="text-gray-600 dark:text-gray-400">
-													<span className="cursor-pointer">Windows unresponsive bug</span>
-												</li>
-											</ol>
-										</div>
-										<div>
-											<h3 className="font-bold my-4">התקפות חדשות</h3>
-											<ol className="font-semibold">
-												{[...Array(30)].map((_n, i) => (
-													// eslint-disable-next-line react/no-array-index-key
-													<li key={i} className="text-gray-600 dark:text-gray-400">
-														<span className="cursor-pointer">כותרת התקפת בוקר</span>
-													</li>
-												))}
-											</ol>
-										</div>
-									</div>
-								</>
-							)}
+							<button
+								className="block 2xl:hidden float-right w-7 dark:w-5 h-10 bg-white border-4 border-l-0 dark:bg-neutral-800 dark:border-0 rounded-r-xl absolute right-0 translate-x-full top-1/2 -translate-y-1/2 font-bold"
+								onClick={() => {
+									leftWinState === 'open' ? setLeftWinState('closed') : setLeftWinState('open');
+								}}
+							>
+								{leftWinState === 'open' ? '>' : '<'}
+							</button>
+							<div className="max-h-[calc(100vh-16rem)] overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 dark:scrollbar-thumb-neutral-700 py-2 px-5 max-w-[calc(100vw-4rem)]">
+								<div>
+									<h3 className="font-bold mb-4">התקפות דומות</h3>
+									<ol className="font-semibold">
+										<li className="text-gray-600 dark:text-gray-400 truncate">
+											<span className="cursor-pointer">
+												Hatkafa
+												Domasssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
+											</span>
+										</li>
+										<li className="text-gray-600 dark:text-gray-400">
+											<span className="cursor-pointer">WSL debugging</span>
+										</li>
+										<li className="text-gray-600 dark:text-gray-400">
+											<span className="cursor-pointer">Windows unresponsive bug</span>
+										</li>
+										<li className="text-gray-600 dark:text-gray-400">
+											<span className="cursor-pointer">WSL debugging</span>
+										</li>
+										<li className="text-gray-600 dark:text-gray-400">
+											<span className="cursor-pointer">Windows unresponsive bug</span>
+										</li>
+									</ol>
+								</div>
+								<div>
+									<h3 className="font-bold my-4">התקפות חדשות</h3>
+									<ol className="font-semibold">
+										{[...Array(30)].map((_n, i) => (
+											// eslint-disable-next-line react/no-array-index-key
+											<li key={i} className="text-gray-600 dark:text-gray-400">
+												<span className="cursor-pointer">כותרת התקפת בוקר</span>
+											</li>
+										))}
+									</ol>
+								</div>
+							</div>
 						</div>
 					</aside>
 				</div>

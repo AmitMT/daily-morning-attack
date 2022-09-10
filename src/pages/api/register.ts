@@ -37,6 +37,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 		.hash(password, 12)
 		.catch((error: string) => res.status(400).json({ error }));
 
+	await connect();
+
 	await User.syncIndexes();
 
 	// create new User on MongoDB
@@ -45,8 +47,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 		email,
 		hashedPassword,
 	});
-
-	await connect();
 
 	await newUser.save().catch((error: MongooseError) => {
 		if (error.message.startsWith('E11000'))

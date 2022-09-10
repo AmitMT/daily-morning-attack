@@ -5,10 +5,9 @@ import { ThemeProvider, useTheme } from 'next-themes';
 import { AppProps } from 'next/app';
 import NextNProgress from 'nextjs-progressbar';
 
-import Navbar from '../components/Navbar';
-
 import '../styles/main.css';
 import '../styles/github-markdown-theme.css';
+import Navbar from '../components/Navbar';
 
 const MainComponent = ({ Component, pageProps }: AppProps) => {
 	const { theme, setTheme } = useTheme();
@@ -50,7 +49,7 @@ const MyApp = ({ Component, pageProps, ...appProps }: AppProps) => {
 						<MainComponent {...{ Component, pageProps, ...appProps }} />
 
 						<NextNProgress
-							color="#29D"
+							color="#8B5CF6"
 							startPosition={0.333}
 							stopDelayMs={200}
 							height={3}
