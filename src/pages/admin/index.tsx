@@ -49,7 +49,7 @@ const Admin: NextPage<AdminProps> = ({ cyberAttacks, session }) => {
 						פה תוכל לערוך ולאשר התקפות בוקר
 						<br />
 						<br />
-						אם אתה מבצרניק שפרץ לפה shame on you
+						אם אתה מבצרניק שמנסה לפרוץ לפה shame on you
 					</p>
 				</section>
 			</div>
