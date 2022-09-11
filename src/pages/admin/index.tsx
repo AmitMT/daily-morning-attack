@@ -10,7 +10,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 
 import CustomHeader from '../../components/CustomHeader';
-import { setServerSideSessionView } from '../../lib/auth/serverSideSession';
+import { setServerSideProtectedView } from '../../lib/auth/serverSideSession';
 import { connect } from '../../lib/mongodb/connection';
 import CyberAttack, { CyberAttackType } from '../../models/CyberAttack';
 
@@ -97,7 +97,7 @@ const Admin: NextPage<AdminProps> = ({ cyberAttacks, session }) => {
 	);
 };
 
-export const getServerSideProps = setServerSideSessionView<AdminProps>(async () => {
+export const getServerSideProps = setServerSideProtectedView<AdminProps>(async () => {
 	await connect();
 
 	const cyberAttacks = (await JSON.parse(
