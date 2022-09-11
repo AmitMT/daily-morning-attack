@@ -6,6 +6,7 @@ export interface UserType {
 	email: string;
 	hashedPassword: string;
 	image?: string;
+	admin?: boolean;
 }
 
 const userSchema = new Schema<UserType>({
@@ -26,6 +27,10 @@ const userSchema = new Schema<UserType>({
 	},
 	image: {
 		type: String,
+	},
+	admin: {
+		type: Boolean,
+		default: false,
 	},
 });
 

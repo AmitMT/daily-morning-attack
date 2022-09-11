@@ -67,14 +67,17 @@ const Edit: NextPage<EditProps> = ({ cyberAttack }) => {
 				onClick={() => {
 					setSending('pending');
 					axios
-						.post(`/api/cyber-attacks/${router.query.id}`, {
-							id: cyberAttack?._id,
+						.post(`/api/cyber-attacks/${cyberAttack?._id}`, {
 							title,
 							markdownContent: value,
 						})
 						.catch(() => {});
 					setSending('idle');
-					router.push(`/cyber-attacks/${cyberAttack?._id}/`);
+					router.push(
+						`/cyber-attacks/${cyberAttack?._id}/${
+							router.query.admin === 'true' ? '?admin=true' : ''
+						}`,
+					);
 				}}
 				disabled={sending === 'pending'}
 			>

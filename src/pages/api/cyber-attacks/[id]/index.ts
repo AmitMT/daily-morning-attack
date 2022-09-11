@@ -2,10 +2,11 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import { unstable_getServerSession } from 'next-auth';
 import { ZodError } from 'zod';
 
-import { connect } from '../../../lib/mongodb/connection';
-import CyberAttack from '../../../models/CyberAttack';
-import { CyberAttackSchema, CyberAttackSchemaType } from '../../../utils/zodSchemas';
-import { authOptions } from '../auth/[...nextauth]';
+import { connect } from '../../../../lib/mongodb/connection';
+import CyberAttack from '../../../../models/CyberAttack';
+import User from '../../../../models/User';
+import { CyberAttackSchema, CyberAttackSchemaType } from '../../../../utils/zodSchemas';
+import { authOptions } from '../../auth/[...nextauth]';
 
 interface ResponseData {
 	error?: string;
@@ -30,7 +31,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 		const session = await unstable_getServerSession(req, res, authOptions);
 		if (!session || !session?.user?.name) res.status(401);
 
-		const { id, title, markdownContent } = req.body;
+		const { title, markdownContent } = req.body;
+		const { id } = req.query;
 
 		try {
 			CyberAttackSchema.parse({ title, markdownContent });
@@ -47,8 +49,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 		try {
 			await connect();
 
+			const admin = await User.findOne({ email: session?.user?.email, admin: true });
+
 			const cyberAttack = await CyberAttack.findById(id).populate('author').exec();
-			if (cyberAttack?.author.email !== session?.user?.email)
+			if (!admin && cyberAttack?.author.email !== session?.user?.email)
 				return res.status(401).json({ error: 'Only the creator of this post can edit it' });
 
 			await cyberAttack?.update({ title, markdownContent }).exec();

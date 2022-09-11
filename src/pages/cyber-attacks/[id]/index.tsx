@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 
+import axios from 'axios';
 import dayjs from 'dayjs';
 import { NextPage } from 'next';
 import { Session } from 'next-auth';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 import CustomHeader from '../../../components/CustomHeader';
 import Preview from '../../../components/Preview';
@@ -21,6 +23,8 @@ const CyberAttack: NextPage<CyberAttackProps> = ({ cyberAttack, session }) => {
 
 	const [rightWinState, setRightWinState] = useState<'open' | 'closed'>('closed');
 	const [leftWinState, setLeftWinState] = useState<'open' | 'closed'>('closed');
+
+	const router = useRouter();
 
 	useEffect(() => {
 		const parent = document.getElementById('markdown-preview');
@@ -50,17 +54,34 @@ const CyberAttack: NextPage<CyberAttackProps> = ({ cyberAttack, session }) => {
 					<p className="font-bold text-xl md:text-2xl">
 						{dayjs(cyberAttack?.date).format('DD/MM/YY')}
 					</p>
-
-					{session?.user?.email === cyberAttack?.author.email && (
-						<>
-							{/* eslint-disable-next-line no-underscore-dangle */}
-							<Link href={`/cyber-attacks/${cyberAttack?._id}/edit`}>
+					<div className="flex gap-5">
+						{(router.query.admin === 'true' ||
+							session?.user?.email === cyberAttack?.author.email) && (
+							<Link
+								//  eslint-disable-next-line no-underscore-dangle
+								href={`/cyber-attacks/${cyberAttack?._id}/edit/${
+									router.query.admin === 'true' ? '?admin=true' : ''
+								}`}
+							>
 								<button className="bg-green-500 dark:bg-green-700 p-3 mt-5 -mb-[68px] rounded-xl transition-all hover:scale-110 hover:bg-green-400 dark:hover:bg-green-600">
 									ערוך
 								</button>
 							</Link>
-						</>
-					)}
+						)}
+						{router.query.admin === 'true' && (
+							<button
+								className="bg-green-500 dark:bg-green-700 p-3 mt-5 -mb-[68px] rounded-xl transition-all hover:scale-110 hover:bg-green-400 dark:hover:bg-green-600"
+								onClick={async () => {
+									// eslint-disable-next-line no-underscore-dangle
+									await axios.post(`/api/cyber-attacks/${cyberAttack?._id}/verify/`).then(() => {
+										router.push('/admin/');
+									});
+								}}
+							>
+								אשר להפצה
+							</button>
+						)}
+					</div>
 				</div>
 				<div className="flex justify-center gap-8">
 					<aside

@@ -24,7 +24,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 		try {
 			if (amount && !Array.isArray(amount))
 				return res.json({
-					cyberAttacks: await CyberAttack.find()
+					cyberAttacks: await CyberAttack.find({ verified: true })
 						.sort({ date: -1 })
 						.populate('author')
 						.limit(parseInt(amount, 10))
@@ -32,7 +32,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 						.exec(),
 				});
 			return res.json({
-				cyberAttacks: await CyberAttack.find().sort({ date: -1 }).exec(),
+				cyberAttacks: await CyberAttack.find({ verified: true }).sort({ date: -1 }).exec(),
 			});
 		} catch (e) {
 			res.status(500).json({ error: (e as Error).message });

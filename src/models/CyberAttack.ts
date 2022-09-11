@@ -8,6 +8,7 @@ export interface CyberAttackType {
 	author: UserType;
 	markdownContent: string;
 	date: Date;
+	verified: boolean;
 }
 
 const cyberAttackSchema = new Schema<CyberAttackType>({
@@ -27,6 +28,10 @@ const cyberAttackSchema = new Schema<CyberAttackType>({
 	date: {
 		type: Schema.Types.Date,
 		required: true,
+	},
+	verified: {
+		type: Boolean,
+		default: false,
 	},
 });
 
