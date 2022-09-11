@@ -83,7 +83,7 @@ const CyberAttack: NextPage<CyberAttackProps> = ({ cyberAttack, session }) => {
 						)}
 					</div>
 				</div>
-				<div className="flex justify-center gap-8">
+				<div className="flex justify-center gap-8 pb-5">
 					<aside
 						className={`fixed 2xl:w-80 rounded-xl top-[50vh] 2xl:top-0 right-0 h-full 2xl:h-auto transition-all pr-2 2xl:pr-0 ${
 							rightWinState === 'closed' && ' translate-x-full'
