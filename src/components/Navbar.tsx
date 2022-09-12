@@ -3,6 +3,7 @@ import React, { FC } from 'react';
 
 import {
 	ArrowCircleLeftIcon,
+	FireIcon,
 	LockClosedIcon,
 	MoonIcon,
 	PencilAltIcon,
@@ -45,6 +46,14 @@ const loggedInDropdown: OptionGroup[] = [
 	],
 	{
 		content: (
+			<button onClick={() => Router.router?.push('/hall-of-fame')} className="flex w-full p-2">
+				<FireIcon className="w-5 ml-2" />
+				היכל התהילה
+			</button>
+		),
+	},
+	{
+		content: (
 			<button onClick={() => signOut()} className="flex w-full p-2">
 				<ArrowCircleLeftIcon className="w-5 ml-2" />
 				התנתק
@@ -77,6 +86,14 @@ const noSessionDropdown: OptionGroup[] = [
 			),
 		},
 	],
+	{
+		content: (
+			<button onClick={() => Router.router?.push('/hall-of-fame')} className="flex w-full p-2">
+				<FireIcon className="w-5 ml-2" />
+				היכל התהילה
+			</button>
+		),
+	},
 ];
 
 const Navbar: FC<NavbarProps> = ({ ...props }) => {

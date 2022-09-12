@@ -75,9 +75,9 @@ const Index: NextPage<PageProps> = ({ cyberAttacks, latestCyberAttack }) => {
 				<div className="w-[6px] bg-gray-300 dark:bg-neutral-600 rounded-full" />
 				{cyberAttacks && cyberAttacks.length > 0 && (
 					<article className="lg:flex-1 flex flex-col min-w-0">
-						<h2 className="font-bold text-2xl text-slate-500 dark:text-slate-300 mb-5 text-center">
-							היכל התהילה
-						</h2>
+						<Link href="/hall-of-fame">
+							<a className="font-bold text-2xl dark:text-slate-300 mb-5 text-center">היכל התהילה</a>
+						</Link>
 						<div className="relative flex-1 flex flex-col min-w-0">
 							<div className="flex-1 px-2 py-5 pb-0 min-w-0 max-h-80 lg:max-h-max overflow-auto">
 								<ol className="flex flex-col gap-2 py-5 -my-5 md:py-0 md:my-0">

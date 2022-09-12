@@ -60,7 +60,7 @@ const Admin: NextPage<AdminProps> = ({ cyberAttacks, session }) => {
 				{cyberAttacks && cyberAttacks.length > 0 && (
 					<article className="w-1/2 flex flex-col min-w-0 mb-5">
 						<h2 className="font-bold text-2xl text-slate-500 dark:text-slate-300 mb-5 text-center">
-							היכל התהילה
+							התקפות שממתינות לאישור
 						</h2>
 						<div className="relative flex-1 flex flex-col min-w-0">
 							<div className="flex-1 px-2 py-5 pb-0 min-w-0 max-h-80 lg:max-h-max overflow-auto">
