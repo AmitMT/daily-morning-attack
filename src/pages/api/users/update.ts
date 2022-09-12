@@ -39,7 +39,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 
 		await User.syncIndexes();
 
-		await User.findOneAndUpdate({ email: session?.user?.email }, { name: username, email }).exec();
+		const user = await User.findOne({ email: session?.user?.email }).exec();
+		if (!user)
+			return res
+				.status(401)
+				.json({ error: 'your ip has been logged and transferred to the nearest police station' });
+		// eslint-disable-next-line no-underscore-dangle
+		await User.findByIdAndUpdate(user._id, { name: username });
 	} catch (err) {
 		res.status(500).json({ error: (err as Error).message });
 	}
