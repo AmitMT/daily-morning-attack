@@ -35,7 +35,7 @@ export const getServerSideProps = setServerSideSessionView<HallOfFameProps>(asyn
 				JSON.stringify(
 					await CyberAttack.find({ verified: true })
 						.sort({ date: -1 })
-						.populate('author')
+						.populate('author', '_id name')
 						.select('-markdownContent')
 						.exec(),
 				),

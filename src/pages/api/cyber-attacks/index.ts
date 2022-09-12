@@ -26,7 +26,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 				return res.json({
 					cyberAttacks: await CyberAttack.find({ verified: true })
 						.sort({ date: -1 })
-						.populate('author')
+						.populate('author', '_id name')
 						.limit(parseInt(amount, 10))
 						.select(allData === 'true' ? '' : '-markdownContent')
 						.exec(),

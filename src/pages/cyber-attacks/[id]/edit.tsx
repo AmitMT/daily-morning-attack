@@ -92,7 +92,10 @@ export const getServerSideProps = setServerSideProtectedView(async ({ params }) 
 
 	const cyberAttack = JSON.parse(
 		JSON.stringify(
-			(await dbCyberAttack.findById(params?.id).populate('author').exec()) as CyberAttackType,
+			(await dbCyberAttack
+				.findById(params?.id)
+				.populate('author', '_id name')
+				.exec()) as CyberAttackType,
 		),
 	);
 

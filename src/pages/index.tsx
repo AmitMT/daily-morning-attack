@@ -120,7 +120,7 @@ export const getServerSideProps = setServerSideSessionView<PageProps>(async () =
 			JSON.stringify(
 				await CyberAttack.find({ verified: true })
 					.sort({ date: -1 })
-					.populate('author')
+					.populate('author', '_id name')
 					.limit(1)
 					.exec(),
 			),
@@ -129,7 +129,7 @@ export const getServerSideProps = setServerSideSessionView<PageProps>(async () =
 			JSON.stringify(
 				await CyberAttack.find({ verified: true })
 					.sort({ date: -1 })
-					.populate('author')
+					.populate('author', '_id name')
 					.limit(amountOfPosts)
 					.select('-markdownContent')
 					.exec(),

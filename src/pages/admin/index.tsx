@@ -106,7 +106,7 @@ export const getServerSideProps = setServerSideProtectedView<AdminProps>(async (
 		JSON.stringify(
 			await CyberAttack.find({ verified: { $ne: true } })
 				.sort({ date: -1 })
-				.populate('author')
+				.populate('author', '_id name')
 				.limit(amountOfPosts)
 				.select('-markdownContent')
 				.exec(),

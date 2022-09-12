@@ -214,7 +214,7 @@ export const getServerSideProps = setServerSideSessionView<CyberAttackProps>(asy
 	await connect();
 
 	const cyberAttack = JSON.parse(
-		JSON.stringify(await dbCyberAttack.findById(params?.id).populate('author').exec()),
+		JSON.stringify(await dbCyberAttack.findById(params?.id).populate('author', '_id name').exec()),
 	);
 
 	const [relatedCyberAttacks, latestCyberAttacks] = await Promise.all([
@@ -289,7 +289,7 @@ export const getServerSideProps = setServerSideSessionView<CyberAttackProps>(asy
 					await dbCyberAttack
 						.find({ verified: true })
 						.sort({ date: -1 })
-						.populate('author')
+						.populate('author', '_id name')
 						.limit(30)
 						.select('-markdownContent')
 						.exec(),
