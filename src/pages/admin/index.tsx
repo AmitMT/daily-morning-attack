@@ -24,6 +24,8 @@ type AdminProps = {
 const Admin: NextPage<AdminProps> = ({ cyberAttacks, session }) => {
 	const router = useRouter();
 
+	console.log(cyberAttacks);
+
 	return (
 		<>
 			<CustomHeader />
@@ -56,7 +58,7 @@ const Admin: NextPage<AdminProps> = ({ cyberAttacks, session }) => {
 
 			<section className="flex pt-10 lg:p-10 bg-gray-100 dark:bg-neutral-900 break-words justify-center">
 				{cyberAttacks && cyberAttacks.length > 0 && (
-					<article className="w-1/2 flex flex-col min-w-0">
+					<article className="w-1/2 flex flex-col min-w-0 mb-5">
 						<h2 className="font-bold text-2xl text-slate-500 dark:text-slate-300 mb-5 text-center">
 							היכל התהילה
 						</h2>
