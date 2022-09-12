@@ -131,8 +131,8 @@ const CyberAttack: NextPage<CyberAttackProps> = ({
 
 					<article className="max-w-4xl dark:bg-neutral-900 rounded-xl overflow-hidden border-4 dark:border-none m-2 lg:m-0 h-max">
 						<div className="p-10 bg-gray-100 border-b-4 dark:border-b-0 dark:bg-neutral-800">
-							<h1 className="font-bold text-3xl mb-2 truncate">{cyberAttack?.title}</h1>
-							<h3 className="font-semibold mb-5 truncate">
+							<h1 className="font-bold text-3xl mb-2">{cyberAttack?.title}</h1>
+							<h3 className="font-semibold mb-5">
 								כתב: <a className="font-bold">{cyberAttack?.author.name}</a>
 							</h3>
 							<p className="font-semibold">
@@ -227,13 +227,15 @@ export const getServerSideProps = setServerSideSessionView<CyberAttackProps>(asy
 				return arr;
 			};
 
+			const titleWords = (cyberAttack.title as string).split(' ');
+
 			return JSON.parse(
 				JSON.stringify(
 					removeBy(
 						uniqBy(
 							(
 								await Promise.all(
-									(cyberAttack.title as string).split(' ').map(
+									titleWords.map(
 										async (current) =>
 											(await dbCyberAttack.aggregate([
 												{
@@ -254,6 +256,7 @@ export const getServerSideProps = setServerSideSessionView<CyberAttackProps>(asy
 														score: { $meta: 'searchScore' },
 													},
 												},
+												{ $limit: Math.floor(15 / titleWords.length) },
 											])) as CyberAttackType[],
 									),
 								)
