@@ -166,12 +166,17 @@ const CyberAttack: NextPage<CyberAttackProps> = ({
 										<h3 className="font-bold mb-4">התקפות דומות</h3>
 										<ol className="font-semibold">
 											{relatedCyberAttacks.map((relatedCyberAttack) => (
-												<li
+												<Link
+													// eslint-disable-next-line no-underscore-dangle
+													href={`/cyber-attacks/${relatedCyberAttack._id}/`}
 													key={relatedCyberAttack.title}
-													className="text-gray-600 dark:text-gray-400 truncate"
 												>
-													{relatedCyberAttack.title}
-												</li>
+													<li className="truncate text-gray-600 dark:text-gray-400">
+														<a className="text-gray-600 dark:text-gray-400">
+															{relatedCyberAttack.title}
+														</a>
+													</li>
+												</Link>
 											))}
 										</ol>
 									</div>
@@ -181,12 +186,17 @@ const CyberAttack: NextPage<CyberAttackProps> = ({
 										<h3 className="font-bold my-4">התקפות חדשות</h3>
 										<ol className="font-semibold">
 											{latestCyberAttacks.map((latestCyberAttack) => (
-												<li
+												<Link
+													// eslint-disable-next-line no-underscore-dangle
+													href={`/cyber-attacks/${latestCyberAttack._id}/`}
 													key={latestCyberAttack.title}
-													className="text-gray-600 dark:text-gray-400"
 												>
-													<span className="cursor-pointer">{latestCyberAttack.title}</span>
-												</li>
+													<li className="truncate text-gray-600 dark:text-gray-400">
+														<a className="text-gray-600 dark:text-gray-400">
+															{latestCyberAttack.title}
+														</a>
+													</li>
+												</Link>
 											))}
 										</ol>
 									</div>
