@@ -18,7 +18,7 @@ const HallOfFame: NextPage<HallOfFameProps> = ({ cyberAttacks, ...props }) => {
 		<>
 			<CustomHeader />
 
-			<section className="flex flex-col items-center" {...props}>
+			<section className="flex flex-col items-center mb-5" {...props}>
 				<h1 className="text-6xl font-bold m-10">היכל התהילה</h1>
 				<div className="w-full xl:w-3/4 2xl:w-1/2 flex justify-center">
 					<HallOfFameComponent cyberAttacks={cyberAttacks} />
