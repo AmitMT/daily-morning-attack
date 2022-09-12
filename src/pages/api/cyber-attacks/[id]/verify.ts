@@ -24,8 +24,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 			const admin = await User.findOne({ email: session?.user?.email, admin: true });
 
 			const cyberAttack = await CyberAttack.findById(id).populate('author').exec();
-			if (!admin && cyberAttack?.author.email !== session?.user?.email)
-				return res.status(401).json({ error: 'Only the creator of this post can edit it' });
+			if (!admin) return res.status(401).json({ error: 'Only an admin can verify it' });
 
 			await cyberAttack?.update({ verified: true }).exec();
 		} catch (err) {
