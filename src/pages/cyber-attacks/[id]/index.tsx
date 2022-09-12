@@ -176,19 +176,21 @@ const CyberAttack: NextPage<CyberAttackProps> = ({
 										</ol>
 									</div>
 								)}
-								<div>
-									<h3 className="font-bold my-4">התקפות חדשות</h3>
-									<ol className="font-semibold">
-										{latestCyberAttacks.map((latestCyberAttack) => (
-											<li
-												key={latestCyberAttack.title}
-												className="text-gray-600 dark:text-gray-400"
-											>
-												<span className="cursor-pointer">{latestCyberAttack.title}</span>
-											</li>
-										))}
-									</ol>
-								</div>
+								{latestCyberAttacks && latestCyberAttacks.length > 0 && (
+									<div>
+										<h3 className="font-bold my-4">התקפות חדשות</h3>
+										<ol className="font-semibold">
+											{latestCyberAttacks.map((latestCyberAttack) => (
+												<li
+													key={latestCyberAttack.title}
+													className="text-gray-600 dark:text-gray-400"
+												>
+													<span className="cursor-pointer">{latestCyberAttack.title}</span>
+												</li>
+											))}
+										</ol>
+									</div>
+								)}
 							</div>
 						</div>
 					</aside>
