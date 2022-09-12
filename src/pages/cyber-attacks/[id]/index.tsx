@@ -16,9 +16,16 @@ import dbCyberAttack, { CyberAttackType } from '../../../models/CyberAttack';
 export interface CyberAttackProps {
 	session: Session | null;
 	cyberAttack: CyberAttackType | null;
+	relatedCyberAttacks: CyberAttackType[];
+	latestCyberAttacks: CyberAttackType[];
 }
 
-const CyberAttack: NextPage<CyberAttackProps> = ({ cyberAttack, session }) => {
+const CyberAttack: NextPage<CyberAttackProps> = ({
+	cyberAttack,
+	relatedCyberAttacks,
+	latestCyberAttacks,
+	session,
+}) => {
 	const [sections, setSections] = useState<HTMLHeadingElement[] | null>();
 
 	const [rightWinState, setRightWinState] = useState<'open' | 'closed'>('closed');
@@ -154,36 +161,30 @@ const CyberAttack: NextPage<CyberAttackProps> = ({ cyberAttack, session }) => {
 								{leftWinState === 'open' ? '>' : '<'}
 							</button>
 							<div className="max-h-[calc(100vh-16rem)] overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 dark:scrollbar-thumb-neutral-700 py-2 px-5 max-w-[calc(100vw-4rem)]">
-								<div>
-									<h3 className="font-bold mb-4">התקפות דומות</h3>
-									<ol className="font-semibold">
-										<li className="text-gray-600 dark:text-gray-400 truncate">
-											<span className="cursor-pointer">
-												Hatkafa
-												Domasssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
-											</span>
-										</li>
-										<li className="text-gray-600 dark:text-gray-400">
-											<span className="cursor-pointer">WSL debugging</span>
-										</li>
-										<li className="text-gray-600 dark:text-gray-400">
-											<span className="cursor-pointer">Windows unresponsive bug</span>
-										</li>
-										<li className="text-gray-600 dark:text-gray-400">
-											<span className="cursor-pointer">WSL debugging</span>
-										</li>
-										<li className="text-gray-600 dark:text-gray-400">
-											<span className="cursor-pointer">Windows unresponsive bug</span>
-										</li>
-									</ol>
-								</div>
+								{relatedCyberAttacks && relatedCyberAttacks.length > 0 && (
+									<div>
+										<h3 className="font-bold mb-4">התקפות דומות</h3>
+										<ol className="font-semibold">
+											{relatedCyberAttacks.map((relatedCyberAttack) => (
+												<li
+													key={relatedCyberAttack.title}
+													className="text-gray-600 dark:text-gray-400 truncate"
+												>
+													{relatedCyberAttack.title}
+												</li>
+											))}
+										</ol>
+									</div>
+								)}
 								<div>
 									<h3 className="font-bold my-4">התקפות חדשות</h3>
 									<ol className="font-semibold">
-										{[...Array(30)].map((_n, i) => (
-											// eslint-disable-next-line react/no-array-index-key
-											<li key={i} className="text-gray-600 dark:text-gray-400">
-												<span className="cursor-pointer">כותרת התקפת בוקר</span>
+										{latestCyberAttacks.map((latestCyberAttack) => (
+											<li
+												key={latestCyberAttack.title}
+												className="text-gray-600 dark:text-gray-400"
+											>
+												<span className="cursor-pointer">{latestCyberAttack.title}</span>
 											</li>
 										))}
 									</ol>
@@ -201,14 +202,92 @@ export const getServerSideProps = setServerSideSessionView<CyberAttackProps>(asy
 	await connect();
 
 	const cyberAttack = JSON.parse(
-		JSON.stringify(
-			(await dbCyberAttack.findById(params?.id).populate('author').exec()) as CyberAttackType,
-		),
+		JSON.stringify(await dbCyberAttack.findById(params?.id).populate('author').exec()),
 	);
+
+	const [relatedCyberAttacks, latestCyberAttacks] = await Promise.all([
+		(async () => {
+			const uniqBy = <T extends { [key: string]: any }>(arr: T[], key: keyof T) => {
+				const seen: { [key: string]: boolean } = {};
+				// eslint-disable-next-line no-return-assign
+				return arr.filter((item) => (seen[item[key]] ? false : (seen[item[key]] = true)));
+			};
+
+			const removeBy = <T extends { [key: string]: any }>(
+				arr: T[],
+				indexFinder: (item: T) => boolean,
+			) => {
+				// console.log(arr);
+
+				const index = arr.findIndex(indexFinder);
+
+				if (index !== -1) arr.splice(index, 1);
+				return arr;
+			};
+
+			return JSON.parse(
+				JSON.stringify(
+					removeBy(
+						uniqBy(
+							(
+								await Promise.all(
+									(cyberAttack.title as string).split(' ').map(
+										async (current) =>
+											(await dbCyberAttack.aggregate([
+												{
+													$search: {
+														index: 'default',
+														text: {
+															query: current,
+															path: {
+																wildcard: '*',
+															},
+														},
+													},
+												},
+												{ $match: { verified: true } },
+												{
+													$project: {
+														title: 1,
+														score: { $meta: 'searchScore' },
+													},
+												},
+											])) as CyberAttackType[],
+									),
+								)
+							)
+								.reduce<CyberAttackType[]>((prev, current) => [...prev, ...current], [])
+								.sort((a, b) => (b as any).score - (a as any).score),
+							'_id',
+						),
+						(item) => {
+							// eslint-disable-next-line no-underscore-dangle
+							return item._id?.toString() === cyberAttack._id.toString();
+						},
+					),
+				),
+			);
+		})(),
+		(async () => {
+			return JSON.parse(
+				JSON.stringify(
+					await dbCyberAttack
+						.find({ verified: true })
+						.sort({ date: -1 })
+						.populate('author')
+						.limit(30)
+						.select('-markdownContent')
+						.exec(),
+				),
+			);
+		})(),
+	]);
 
 	return {
 		props: {
 			cyberAttack,
+			relatedCyberAttacks,
+			latestCyberAttacks,
 		},
 	};
 });

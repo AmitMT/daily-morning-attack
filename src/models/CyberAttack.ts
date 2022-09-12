@@ -1,8 +1,8 @@
-import mongoose, { Schema, model, Types } from 'mongoose';
+import mongoose, { Schema, model, Types, Document, Model } from 'mongoose';
 
 import { UserType } from './User';
 
-export interface CyberAttackType {
+export interface CyberAttackType extends Document {
 	_id?: Types.ObjectId;
 	title: string;
 	author: UserType;
@@ -35,5 +35,5 @@ const cyberAttackSchema = new Schema<CyberAttackType>({
 	},
 });
 
-export default (mongoose.models.CyberAttack as mongoose.Model<CyberAttackType>) ||
+export default (mongoose.models.CyberAttack as Model<CyberAttackType>) ||
 	model<CyberAttackType>('CyberAttack', cyberAttackSchema, 'Cyber Attacks');
